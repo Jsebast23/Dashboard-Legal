@@ -1,4 +1,14 @@
 {
+  "builds": [
+    {
+      "src": "admin/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "cliente/index.html",
+      "use": "@vercel/static"
+    }
+  ],
   "routes": [
     { "src": "/admin", "dest": "/admin/index.html" },
     { "src": "/admin/", "dest": "/admin/index.html" },
