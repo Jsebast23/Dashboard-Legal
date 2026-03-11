@@ -1,9 +1,7 @@
 {
-  "rewrites": [
-    { "source": "/admin", "destination": "/admin/index.html" },
-    { "source": "/admin/", "destination": "/admin/index.html" },
-    { "source": "/cliente", "destination": "/cliente/index.html" },
-    { "source": "/cliente/", "destination": "/cliente/index.html" },
-    { "source": "/(.*)", "destination": "/cliente/index.html" }
+  "routes": [
+    { "src": "/admin", "dest": "/admin/index.html" },
+    { "src": "/cliente", "dest": "/cliente/index.html" },
+    { "src": "/cliente/(.*)", "dest": "/cliente/index.html" }
   ]
 }
