@@ -1,0 +1,791 @@
+<!-- Solo copia esto y reemplaza TODO tu admin/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Procesos Legales</title>
+    <style>
+        /* Mismo CSS que antes - mantenlo igual */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #2d3748;
+            font-size: 24px;
+        }
+
+        .btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #3182ce;
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+        }
+
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+
+        .btn-danger {
+            background: #f56565;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+
+        .form-section {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+
+        /* Sección de Pasos */
+        .pasos-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed #cbd5e0;
+        }
+
+        .pasos-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .pasos-header h3 {
+            color: #2d3748;
+            font-size: 18px;
+        }
+
+        .pasos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .paso-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .paso-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #4299e1;
+        }
+
+        .paso-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .paso-titulo {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 16px;
+        }
+
+        .paso-estado {
+            padding: 4px 8px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .estado-pendiente {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .estado-progreso {
+            background: #feebc8;
+            color: #c05621;
+        }
+
+        .estado-completado {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .paso-body {
+            margin-bottom: 12px;
+        }
+
+        .paso-descripcion {
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .paso-fechas {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #4a5568;
+            margin-bottom: 4px;
+        }
+
+        .paso-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn-icon {
+            padding: 4px 8px;
+            font-size: 12px;
+            background: #edf2f7;
+            color: #4a5568;
+        }
+
+        .btn-icon:hover {
+            background: #e2e8f0;
+        }
+
+        .form-paso {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-paso.hidden {
+            display: none;
+        }
+
+        .form-paso-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .procesos-list {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .proceso-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .proceso-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .proceso-header h3 {
+            color: #2d3748;
+            font-size: 16px;
+        }
+
+        .proceso-badge {
+            background: #4299e1;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+
+        .proceso-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .proceso-pasos {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px solid #edf2f7;
+        }
+
+        .proceso-link {
+            background: #f7fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .link-cliente {
+            background: #ebf8ff;
+            color: #2b6cb0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <header>
+            <h1>⚖️ Panel de Administración - Procesos Legales</h1>
+            <button class="btn" onclick="mostrarFormulario()">+ Nuevo Proceso</button>
+        </header>
+
+        <!-- Formulario para crear/editar proceso -->
+        <div id="formProceso" class="form-section">
+            <h2 id="formTitulo">Crear Nuevo Proceso</h2>
+            <input type="hidden" id="procesoId" value="">
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Servicio Contratado</label>
+                    <input type="text" id="servicio" placeholder="Ej: Divorcio Contencioso" value="Divorcio Contencioso">
+                </div>
+                <div class="form-group">
+                    <label>Expediente</label>
+                    <input type="text" id="expediente" placeholder="Ej: #1234-2024" value="#1234-2024">
+                </div>
+                <div class="form-group">
+                    <label>Nombre del Cliente</label>
+                    <input type="text" id="clienteNombre" placeholder="Nombre completo" value="María González">
+                </div>
+                <div class="form-group">
+                    <label>Apodo</label>
+                    <input type="text" id="clienteApodo" placeholder="Apodo" value="Mari">
+                </div>
+                <div class="form-group">
+                    <label>Código del Servicio</label>
+                    <input type="text" id="codigoServicio" placeholder="Ej: DIV-2403-156" value="DIV-2403-156">
+                </div>
+                <div class="form-group">
+                    <label>ID Interno</label>
+                    <input type="text" id="idInterno" placeholder="Ej: CL-7890" value="CL-7890">
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Inicio</label>
+                    <input type="date" id="fechaInicio" value="2024-03-15">
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE PASOS DINÁMICOS -->
+            <div class="pasos-section">
+                <div class="pasos-header">
+                    <h3>📋 Pasos del Proceso</h3>
+                    <button class="btn btn-secondary" onclick="mostrarFormularioPaso()">+ Agregar Paso</button>
+                </div>
+
+                <!-- Grid de pasos -->
+                <div id="pasosContainer" class="pasos-grid">
+                    <!-- Los pasos se insertarán aquí dinámicamente -->
+                </div>
+
+                <!-- Formulario para crear/editar paso -->
+                <div id="formPaso" class="form-paso hidden">
+                    <h4 id="formPasoTitle" style="margin-bottom: 12px;">Nuevo Paso</h4>
+                    <input type="hidden" id="pasoIndex" value="-1">
+                    
+                    <div class="form-paso-grid">
+                        <div class="form-group full-width">
+                            <label>Título del Paso</label>
+                            <input type="text" id="pasoTitulo" placeholder="Ej: Presentación de documentos">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Fecha de Inicio</label>
+                            <input type="date" id="pasoFechaInicio">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Fecha Estimada</label>
+                            <input type="date" id="pasoFechaEstimada">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select id="pasoEstado">
+                                <option value="pendiente">Pendiente</option>
+                                <option value="en_progreso">En Progreso</option>
+                                <option value="completado">Completado</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label>Descripción</label>
+                            <textarea id="pasoDescripcion" rows="2" placeholder="Descripción del paso..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                        <button class="btn btn-secondary" onclick="guardarPaso()">Guardar Paso</button>
+                        <button class="btn" style="background: #cbd5e0;" onclick="cancelarFormularioPaso()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="guardarProceso()">Guardar Proceso</button>
+                <button class="btn" style="background: #cbd5e0;" onclick="cancelarFormulario()">Cancelar</button>
+            </div>
+        </div>
+
+        <!-- Lista de procesos -->
+        <div class="procesos-list">
+            <h2>Procesos Activos</h2>
+            <div id="listaProcesos">
+                <!-- Aquí se cargarán los procesos dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variable global para almacenar los pasos temporales
+        let pasosTemporales = [];
+
+        // Mostrar/ocultar formulario de proceso
+        function mostrarFormulario(procesoParaEditar = null) {
+            document.getElementById('formProceso').classList.add('active');
+            if (procesoParaEditar) {
+                document.getElementById('formTitulo').textContent = 'Editar Proceso';
+                document.getElementById('procesoId').value = procesoParaEditar.id;
+                // Cargar datos del proceso...
+                cargarDatosProceso(procesoParaEditar);
+            } else {
+                document.getElementById('formTitulo').textContent = 'Crear Nuevo Proceso';
+                document.getElementById('procesoId').value = '';
+                limpiarFormularioProceso();
+            }
+        }
+
+        function cargarDatosProceso(proceso) {
+            document.getElementById('servicio').value = proceso.servicio.nombre;
+            document.getElementById('expediente').value = proceso.servicio.expediente;
+            document.getElementById('clienteNombre').value = proceso.cliente.nombre;
+            document.getElementById('clienteApodo').value = proceso.cliente.apodo;
+            document.getElementById('codigoServicio').value = proceso.servicio.codigo;
+            document.getElementById('idInterno').value = proceso.servicio.idInterno;
+            document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio;
+            
+            pasosTemporales = proceso.pasos || [];
+            actualizarGridPasos();
+        }
+
+        function cancelarFormulario() {
+            document.getElementById('formProceso').classList.remove('active');
+            pasosTemporales = [];
+            actualizarGridPasos();
+        }
+
+        // Funciones para manejar pasos
+        function mostrarFormularioPaso(index = -1) {
+            document.getElementById('formPaso').classList.remove('hidden');
+            document.getElementById('pasoIndex').value = index;
+            
+            if (index >= 0 && pasosTemporales[index]) {
+                // Editar paso existente
+                const paso = pasosTemporales[index];
+                document.getElementById('formPasoTitle').textContent = 'Editar Paso';
+                document.getElementById('pasoTitulo').value = paso.titulo || '';
+                document.getElementById('pasoFechaInicio').value = paso.fechaInicio || '';
+                document.getElementById('pasoFechaEstimada').value = paso.fechaEstimada || '';
+                document.getElementById('pasoEstado').value = paso.estado || 'pendiente';
+                document.getElementById('pasoDescripcion').value = paso.descripcion || '';
+            } else {
+                // Nuevo paso
+                document.getElementById('formPasoTitle').textContent = 'Nuevo Paso';
+                document.getElementById('pasoTitulo').value = '';
+                document.getElementById('pasoFechaInicio').value = '';
+                document.getElementById('pasoFechaEstimada').value = '';
+                document.getElementById('pasoEstado').value = 'pendiente';
+                document.getElementById('pasoDescripcion').value = '';
+            }
+        }
+
+        function cancelarFormularioPaso() {
+            document.getElementById('formPaso').classList.add('hidden');
+            document.getElementById('pasoIndex').value = '-1';
+        }
+
+        function guardarPaso() {
+            const index = parseInt(document.getElementById('pasoIndex').value);
+            
+            const paso = {
+                titulo: document.getElementById('pasoTitulo').value,
+                fechaInicio: document.getElementById('pasoFechaInicio').value,
+                fechaEstimada: document.getElementById('pasoFechaEstimada').value,
+                estado: document.getElementById('pasoEstado').value,
+                descripcion: document.getElementById('pasoDescripcion').value,
+                progreso: document.getElementById('pasoEstado').value === 'completado' ? 100 : 
+                         document.getElementById('pasoEstado').value === 'en_progreso' ? 45 : 0
+            };
+
+            if (index >= 0) {
+                // Editar existente
+                pasosTemporales[index] = paso;
+            } else {
+                // Agregar nuevo
+                pasosTemporales.push(paso);
+            }
+
+            // Actualizar grid
+            actualizarGridPasos();
+            
+            // Ocultar formulario
+            cancelarFormularioPaso();
+        }
+
+        function eliminarPaso(index) {
+            if (confirm('¿Eliminar este paso?')) {
+                pasosTemporales.splice(index, 1);
+                actualizarGridPasos();
+            }
+        }
+
+        function actualizarGridPasos() {
+            const container = document.getElementById('pasosContainer');
+            
+            if (pasosTemporales.length === 0) {
+                container.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No hay pasos agregados. Haz clic en "Agregar Paso" para comenzar.</p>';
+                return;
+            }
+
+            let html = '';
+            pasosTemporales.forEach((paso, index) => {
+                const estadoClass = paso.estado === 'completado' ? 'estado-completado' :
+                                   paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
+                
+                const estadoTexto = paso.estado === 'completado' ? 'Completado' :
+                                   paso.estado === 'en_progreso' ? 'En Progreso' : 'Pendiente';
+
+                html += `
+                    <div class="paso-card">
+                        <div class="paso-header">
+                            <span class="paso-titulo">${paso.titulo || 'Sin título'}</span>
+                            <span class="paso-estado ${estadoClass}">${estadoTexto}</span>
+                        </div>
+                        <div class="paso-body">
+                            <div class="paso-descripcion">${paso.descripcion || 'Sin descripción'}</div>
+                            <div class="paso-fechas">
+                                <span>📅 Inicio: ${paso.fechaInicio || 'No definida'}</span>
+                                <span>🎯 Est.: ${paso.fechaEstimada || 'No definida'}</span>
+                            </div>
+                        </div>
+                        <div class="paso-actions">
+                            <button class="btn-icon" onclick="mostrarFormularioPaso(${index})">✏️ Editar</button>
+                            <button class="btn-icon" style="color: #e53e3e;" onclick="eliminarPaso(${index})">🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Guardar proceso completo
+        function guardarProceso() {
+            const procesoId = document.getElementById('procesoId').value;
+            
+            const proceso = {
+                // Convertir ID a string para evitar problemas
+                id: procesoId ? procesoId.toString() : Date.now().toString(),
+                servicio: {
+                    nombre: document.getElementById('servicio').value,
+                    expediente: document.getElementById('expediente').value,
+                    fechaInicio: document.getElementById('fechaInicio').value,
+                    codigo: document.getElementById('codigoServicio').value,
+                    idInterno: document.getElementById('idInterno').value
+                },
+                cliente: {
+                    nombre: document.getElementById('clienteNombre').value,
+                    apodo: document.getElementById('clienteApodo').value
+                },
+                pasos: pasosTemporales,
+                linkCliente: `/cliente/?id=${procesoId ? procesoId.toString() : Date.now().toString()}`,
+                fechaCreacion: new Date().toLocaleDateString()
+            };
+
+            // Calcular progreso basado en pasos
+            if (proceso.pasos.length > 0) {
+                const completados = proceso.pasos.filter(p => p.estado === 'completado').length;
+                const enProgreso = proceso.pasos.filter(p => p.estado === 'en_progreso').length;
+                proceso.progreso = {
+                    porcentaje: Math.round((completados / proceso.pasos.length) * 100),
+                    completados: completados,
+                    pendientes: proceso.pasos.length - completados,
+                    fase: obtenerFaseActual(proceso.pasos)
+                };
+            } else {
+                proceso.progreso = {
+                    porcentaje: 0,
+                    completados: 0,
+                    pendientes: 0,
+                    fase: 'Sin iniciar'
+                };
+            }
+
+            // Obtener procesos existentes
+            let procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
+            
+            if (procesoId) {
+                // Editar existente - comparar como string
+                const index = procesos.findIndex(p => p.id.toString() === procesoId.toString());
+                if (index !== -1) {
+                    procesos[index] = proceso;
+                } else {
+                    alert('Error: No se encontró el proceso para editar');
+                    return;
+                }
+            } else {
+                // Nuevo proceso
+                procesos.push(proceso);
+            }
+            
+            // Guardar en localStorage
+            localStorage.setItem('procesos', JSON.stringify(procesos));
+            
+            cancelarFormulario();
+            cargarProcesos();
+            
+            alert('Proceso guardado con éxito!');
+        }
+
+        function obtenerFaseActual(pasos) {
+            if (pasos.length === 0) return 'Sin iniciar';
+            
+            // Buscar el primer paso no completado
+            const pasoActual = pasos.find(p => p.estado !== 'completado');
+            return pasoActual ? pasoActual.titulo : 'Completado';
+        }
+
+        function editarProceso(id) {
+            const procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
+            // Convertir a string para comparación segura
+            const proceso = procesos.find(p => p.id.toString() === id.toString());
+            
+            if (proceso) {
+                document.getElementById('servicio').value = proceso.servicio.nombre;
+                document.getElementById('expediente').value = proceso.servicio.expediente;
+                document.getElementById('clienteNombre').value = proceso.cliente.nombre;
+                document.getElementById('clienteApodo').value = proceso.cliente.apodo;
+                document.getElementById('codigoServicio').value = proceso.servicio.codigo;
+                document.getElementById('idInterno').value = proceso.servicio.idInterno;
+                document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio;
+                
+                pasosTemporales = proceso.pasos || [];
+                actualizarGridPasos();
+                
+                mostrarFormulario(proceso);
+            } else {
+                alert('Error: No se encontró el proceso');
+            }
+        }
+
+        function limpiarFormularioProceso() {
+            document.getElementById('servicio').value = 'Divorcio Contencioso';
+            document.getElementById('expediente').value = '#1234-2024';
+            document.getElementById('clienteNombre').value = 'María González';
+            document.getElementById('clienteApodo').value = 'Mari';
+            document.getElementById('codigoServicio').value = 'DIV-2403-156';
+            document.getElementById('idInterno').value = 'CL-7890';
+            document.getElementById('fechaInicio').value = '2024-03-15';
+            pasosTemporales = [];
+            actualizarGridPasos();
+        }
+
+        // Cargar procesos desde localStorage
+        function cargarProcesos() {
+            const procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
+            const contenedor = document.getElementById('listaProcesos');
+            
+            if (procesos.length === 0) {
+                contenedor.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No hay procesos creados aún</p>';
+                return;
+            }
+
+            let html = '';
+            procesos.forEach(proceso => {
+                const progreso = proceso.progreso || { porcentaje: 0, completados: 0, pendientes: 0 };
+                
+                html += `
+                    <div class="proceso-card">
+                        <div class="proceso-header" onclick="toggleProceso('${proceso.id}')">
+                            <h3>${proceso.servicio.nombre} - ${proceso.cliente.nombre}</h3>
+                            <span class="proceso-badge">${progreso.porcentaje}%</span>
+                        </div>
+                        
+                        <div class="proceso-info">
+                            <span>📋 ${proceso.servicio.codigo}</span>
+                            <span>📅 ${proceso.servicio.fechaInicio}</span>
+                            <span>✅ ${progreso.completados} completados</span>
+                            <span>⏳ ${progreso.pendientes} pendientes</span>
+                        </div>
+                        
+                        <div class="proceso-pasos" id="pasos-${proceso.id}" style="display: none;">
+                            <h4 style="margin-bottom: 10px; color: #4a5568;">Pasos del proceso:</h4>
+                            ${proceso.pasos ? proceso.pasos.map((paso, idx) => {
+                                const estadoClass = paso.estado === 'completado' ? 'estado-completado' :
+                                                   paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
+                                return `
+                                    <div style="border-left: 3px solid #4299e1; padding-left: 12px; margin-bottom: 8px;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <strong>${paso.titulo}</strong>
+                                            <span class="paso-estado ${estadoClass}" style="font-size: 10px;">${paso.estado}</span>
+                                        </div>
+                                        <div style="font-size: 12px; color: #718096;">${paso.descripcion}</div>
+                                    </div>
+                                `;
+                            }).join('') : '<p>No hay pasos definidos</p>'}
+                        </div>
+                        
+                        <div class="proceso-link">
+                            <span>🔗 Link cliente:</span>
+                            <span class="link-cliente" onclick="copiarLink('${proceso.linkCliente}')">${window.location.origin}${proceso.linkCliente}</span>
+                        </div>
+                        
+                        <div style="display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end;">
+                            <button class="btn btn-small" onclick="editarProceso('${proceso.id}')">✏️ Editar</button>
+                            <button class="btn btn-small" style="background: #f56565;" onclick="eliminarProceso('${proceso.id}')">🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            contenedor.innerHTML = html;
+        }
+
+        function toggleProceso(id) {
+            const elemento = document.getElementById(`pasos-${id}`);
+            if (elemento) {
+                elemento.style.display = elemento.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function copiarLink(link) {
+            const url = window.location.origin + link;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copiado al portapapeles!');
+            });
+        }
+
+        function eliminarProceso(id) {
+            if (confirm('¿Estás seguro de eliminar este proceso?')) {
+                let procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
+                // Convertir a string para comparar
+                procesos = procesos.filter(p => p.id.toString() !== id.toString());
+                localStorage.setItem('procesos', JSON.stringify(procesos));
+                cargarProcesos();
+            }
+        }
+
+        // Cargar procesos al iniciar
+        cargarProcesos();
+    </script>
+</body>
+</html>
