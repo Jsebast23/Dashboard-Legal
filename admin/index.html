@@ -801,12 +801,15 @@ function eliminarProceso(id) {
             }
         }
 
-        function copiarLink(link) {
-            const url = window.location.origin + link;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Link copiado al portapapeles!');
-            });
-        }
+        function copiarLink(procesoId) {
+    const url = `https://dashboard.conlecol.com/cliente/?id=${procesoId}`;
+    navigator.clipboard.writeText(url).then(() => {
+        alert('✅ Link copiado al portapapeles!');
+    }).catch(() => {
+        // Fallback para navegadores antiguos
+        prompt('Copia este link manualmente:', url);
+    });
+}
 
     
 
