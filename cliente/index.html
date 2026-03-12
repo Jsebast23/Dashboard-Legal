@@ -14,11 +14,11 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0B0C10 0%, #1A1C24 100%);
+            background: #F5F7FC;
             min-height: 100vh;
             padding: 24px;
             font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #E8E9F3;
+            color: #1A1F2E;
         }
 
         .dashboard {
@@ -31,35 +31,33 @@
 
         /* ===== EFECTOS GLOBALES ===== */
         .glass-card {
-            background: rgba(20, 22, 36, 0.7);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(194, 162, 126, 0.15);
+            border: 1px solid rgba(194, 162, 126, 0.2);
             border-radius: 32px;
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.05);
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .glass-card:hover {
-            border-color: rgba(194, 162, 126, 0.4);
-            box-shadow: 0 25px 45px -12px rgba(194, 162, 126, 0.25);
+            border-color: rgba(194, 162, 126, 0.5);
+            box-shadow: 0 20px 40px -12px rgba(194, 162, 126, 0.25);
         }
 
         /* ===== TARJETA SUPERIOR ===== */
         .top-block {
-            background: rgba(26, 28, 36, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: white;
             border-radius: 36px;
             padding: 32px;
             border: 1px solid rgba(194, 162, 126, 0.2);
-            box-shadow: 0 25px 40px -18px #00000080;
+            box-shadow: 0 25px 40px -18px rgba(58, 15, 20, 0.1);
         }
 
         .service-header {
             margin-bottom: 28px;
             padding-bottom: 24px;
-            border-bottom: 1px solid rgba(194, 162, 126, 0.3);
+            border-bottom: 1px solid rgba(194, 162, 126, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -75,11 +73,11 @@
         }
 
         .service-title h2 {
-            color: #FFFFFF;
+            color: #3A0F14;
             font-size: 28px;
             font-weight: 600;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #FFFFFF 0%, #C2A27E 80%);
+            background: linear-gradient(135deg, #3A0F14 0%, #C2A27E 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -106,9 +104,7 @@
         }
 
         .card {
-            background: rgba(10, 12, 18, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: white;
             border: 1px solid rgba(194, 162, 126, 0.15);
             border-radius: 28px;
             padding: 22px 18px;
@@ -116,27 +112,28 @@
             align-items: center;
             gap: 16px;
             transition: all 0.25s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
         }
 
         .card:hover {
             border-color: #C2A27E;
             transform: translateY(-4px);
-            box-shadow: 0 15px 30px -8px #3A0F1480;
-            background: rgba(20, 22, 30, 0.8);
+            box-shadow: 0 15px 30px -8px rgba(194, 162, 126, 0.25);
+            background: white;
         }
 
         .card-icon {
             width: 54px;
             height: 54px;
-            background: linear-gradient(145deg, #1E1F2B, #13141C);
+            background: linear-gradient(145deg, #F4F1EC, #E6DDCF);
             border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 26px;
-            color: #C2A27E;
+            color: #3A0F14;
             border: 1px solid #C2A27E40;
-            box-shadow: 0 5px 12px #00000040;
+            box-shadow: 0 5px 12px rgba(194, 162, 126, 0.1);
         }
 
         .card-content {
@@ -145,7 +142,7 @@
 
         .card-label {
             font-size: 11px;
-            color: #9A9CB0;
+            color: #8F95B2;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin-bottom: 6px;
@@ -155,21 +152,18 @@
         .card-value {
             font-size: 19px;
             font-weight: 700;
-            color: #FFFFFF;
+            color: #1A1F2E;
             line-height: 1.2;
-            text-shadow: 0 2px 5px #00000060;
         }
 
         .card-subvalue {
             font-size: 12px;
-            color: #B5B5C8;
+            color: #A5A9C5;
             margin-top: 4px;
         }
 
         .progress-section {
-            background: rgba(10, 12, 18, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: #F8FAFF;
             border-radius: 28px;
             padding: 24px;
             border: 1px solid rgba(194, 162, 126, 0.15);
@@ -193,37 +187,34 @@
 
         .progress-title {
             font-weight: 500;
-            color: #D0D2E7;
+            color: #1A1F2E;
             font-size: 16px;
             letter-spacing: 0.5px;
         }
 
         .progress-stage {
-            background: linear-gradient(145deg, #2A2D3E, #1A1C28);
-            color: #C2A27E;
+            background: linear-gradient(145deg, #F4F1EC, #E6DDCF);
+            color: #3A0F14;
             padding: 6px 18px;
             border-radius: 40px;
             font-size: 13px;
             font-weight: 600;
             border: 1px solid #C2A27E60;
-            box-shadow: 0 0 12px #C2A27E30;
         }
 
         .progress-percentage {
             font-weight: 700;
-            color: #FFFFFF;
+            color: #3A0F14;
             font-size: 24px;
-            text-shadow: 0 0 15px #C2A27E80;
         }
 
         .progress-bar {
             width: 100%;
             height: 14px;
-            background: #202230;
+            background: #E6E9F2;
             border-radius: 20px;
             overflow: hidden;
-            border: 1px solid #3A3E55;
-            box-shadow: inset 0 2px 5px #00000080;
+            border: 1px solid #E6DDCF;
         }
 
         .progress-fill {
@@ -232,7 +223,7 @@
             background-size: 200% 100%;
             border-radius: 20px;
             transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            box-shadow: 0 0 20px #C2A27E;
+            box-shadow: 0 0 20px rgba(194, 162, 126, 0.4);
             animation: gradientMove 3s ease infinite;
         }
 
@@ -247,7 +238,7 @@
             justify-content: space-between;
             margin-top: 16px;
             font-size: 14px;
-            color: #ACAEC8;
+            color: #5F6482;
             font-weight: 500;
         }
 
@@ -259,18 +250,17 @@
         }
 
         .fase-card {
-            background: rgba(20, 22, 36, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: white;
             border-radius: 36px;
-            border: 1px solid rgba(194, 162, 126, 0.15);
+            border: 1px solid rgba(194, 162, 126, 0.2);
             overflow: hidden;
             transition: all 0.3s ease;
+            box-shadow: 0 8px 20px -8px rgba(0,0,0,0.03);
         }
 
         .fase-card:hover {
             border-color: rgba(194, 162, 126, 0.5);
-            box-shadow: 0 15px 35px -12px #C2A27E40;
+            box-shadow: 0 15px 35px -12px rgba(194, 162, 126, 0.25);
         }
 
         .fase-header {
@@ -278,14 +268,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 12, 18, 0.5);
+            background: white;
             cursor: pointer;
             transition: background 0.2s;
-            border-bottom: 1px solid transparent;
+            border-bottom: 1px solid rgba(194, 162, 126, 0.1);
         }
 
         .fase-header:hover {
-            background: rgba(30, 32, 48, 0.7);
+            background: #F8FAFF;
         }
 
         .fase-header[aria-expanded="true"] {
@@ -301,7 +291,7 @@
         .fase-nombre {
             font-size: 22px;
             font-weight: 600;
-            color: #FFFFFF;
+            color: #1A1F2E;
             letter-spacing: -0.3px;
         }
 
@@ -313,27 +303,24 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             border: 1px solid;
-            box-shadow: 0 0 15px currentColor30;
         }
 
         .estado-pendiente {
-            background: linear-gradient(145deg, #2A2A35, #1A1A22);
-            color: #9A9CB0;
-            border-color: #5A5C70;
+            background: #EFF6FF;
+            color: #3B82F6;
+            border-color: #3B82F640;
         }
 
         .estado-progreso {
-            background: linear-gradient(145deg, #2D1F1A, #1E1512);
-            color: #FFA07A;
-            border-color: #C2A27E;
-            box-shadow: 0 0 18px #C2A27E60;
+            background: #FEF3C7;
+            color: #F59E0B;
+            border-color: #F59E0B40;
         }
 
         .estado-completado {
-            background: linear-gradient(145deg, #1A2A25, #0E1A16);
-            color: #6FD08C;
-            border-color: #3A6F4C;
-            box-shadow: 0 0 18px #6FD08C60;
+            background: #D1FAE5;
+            color: #10B981;
+            border-color: #10B98140;
         }
 
         .flecha-container {
@@ -342,14 +329,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(194, 162, 126, 0.1);
+            background: #F4F1EC;
             border-radius: 50%;
             transition: all 0.3s;
         }
 
         .flecha {
             font-size: 20px;
-            color: #C2A27E;
+            color: #3A0F14;
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -359,8 +346,7 @@
 
         .fase-contenido {
             padding: 28px;
-            background: rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            background: #FAFCFF;
         }
 
         /* ===== PASOS ===== */
@@ -372,9 +358,7 @@
         }
 
         .paso-card {
-            background: rgba(15, 17, 26, 0.7);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            background: white;
             border-radius: 26px;
             padding: 22px;
             border: 1px solid rgba(194, 162, 126, 0.15);
@@ -395,9 +379,9 @@
         }
 
         .paso-card:hover {
-            transform: translateY(-6px) scale(1.02);
+            transform: translateY(-4px);
             border-color: #C2A27E;
-            box-shadow: 0 20px 30px -12px #C2A27E50;
+            box-shadow: 0 20px 30px -12px rgba(194, 162, 126, 0.25);
         }
 
         .paso-header {
@@ -412,7 +396,7 @@
         .paso-titulo {
             font-size: 18px;
             font-weight: 600;
-            color: #FFFFFF;
+            color: #1A1F2E;
         }
 
         .paso-estado-badge {
@@ -421,13 +405,13 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            background: rgba(194, 162, 126, 0.1);
+            background: rgba(194, 162, 126, 0.05);
             border: 1px solid;
             letter-spacing: 0.8px;
         }
 
         .paso-descripcion {
-            color: #BCBED9;
+            color: #5F6482;
             font-size: 14px;
             line-height: 1.6;
             margin-bottom: 16px;
@@ -437,12 +421,12 @@
             display: flex;
             justify-content: space-between;
             font-size: 12px;
-            color: #8E90A6;
-            border-top: 1px dashed #3A3F55;
+            color: #8F95B2;
+            border-top: 1px dashed #E6DDCF;
             padding-top: 14px;
         }
 
-        /* ===== SUBPASOS (ahora más minimal) ===== */
+        /* ===== SUBPASOS ===== */
         .subpasos-container {
             margin-top: 18px;
             display: flex;
@@ -455,89 +439,22 @@
             align-items: center;
             gap: 12px;
             padding: 10px 14px;
-            background: rgba(0, 0, 0, 0.25);
+            background: #F8FAFF;
             border-radius: 20px;
-            border: 1px solid rgba(194, 162, 126, 0.1);
+            border: 1px solid rgba(194, 162, 126, 0.15);
             transition: all 0.2s;
             cursor: pointer;
         }
 
         .subpaso-item:hover {
-            background: rgba(194, 162, 126, 0.1);
+            background: rgba(194, 162, 126, 0.05);
             border-color: rgba(194, 162, 126, 0.4);
             transform: translateX(4px);
         }
 
-        .subpaso-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #C2A27E;
-            box-shadow: 0 0 10px #C2A27E;
-        }
-
-        .subpaso-dot.completado {
-            background: #6FD08C;
-            box-shadow: 0 0 12px #6FD08C;
-        }
-
-        .subpaso-dot.pendiente {
-            background: #9A9CB0;
-            box-shadow: none;
-        }
-
-        .subpaso-desc {
-            flex: 1;
-            font-size: 13px;
-            color: #D0D2E7;
-        }
-
-        .subpaso-estado {
-            font-size: 10px;
-            padding: 3px 10px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-transform: uppercase;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(194,162,126,0.2);
-        }
-
-        /* ===== ERROR ===== */
-        .error-message {
-            text-align: center;
-            padding: 60px 40px;
-            background: rgba(20, 22, 36, 0.8);
-            backdrop-filter: blur(16px);
-            border-radius: 40px;
-            border: 1px solid rgba(194, 162, 126, 0.2);
-        }
-
-        .error-message h2 {
-            color: #FFFFFF;
-            margin-bottom: 16px;
-            font-size: 28px;
-            font-weight: 500;
-        }
-
-        .error-message p {
-            color: #9A9CB0;
-            font-size: 16px;
-        }
-
-        /* ===== ANIMACIONES ===== */
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px #C2A27E40; }
-            50% { box-shadow: 0 0 20px #C2A27E80; }
-            100% { box-shadow: 0 0 5px #C2A27E40; }
-        }
-
-        .service-badge {
-            animation: pulseGlow 3s infinite;
-        }
-                /* EFECTO DE CLIC PARA SUBPASOS */
         .subpaso-item:active {
             transform: scale(0.98);
-            background: rgba(194, 162, 126, 0.3) !important;
+            background: rgba(194, 162, 126, 0.15) !important;
             transition: all 0.08s ease;
         }
 
@@ -547,8 +464,81 @@
         }
 
         .subpaso-item:active .subpaso-estado {
-            color: #C2A27E;
+            color: #3A0F14;
             font-weight: 600;
+        }
+
+        .subpaso-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #C2A27E;
+            transition: all 0.2s;
+        }
+
+        .subpaso-dot.completado {
+            background: #10B981;
+            box-shadow: 0 0 12px #10B981;
+        }
+
+        .subpaso-dot.progreso {
+            background: #F59E0B;
+            box-shadow: 0 0 12px #F59E0B;
+        }
+
+        .subpaso-dot.pendiente {
+            background: #3B82F6;
+            box-shadow: 0 0 12px #3B82F6;
+        }
+
+        .subpaso-desc {
+            flex: 1;
+            font-size: 13px;
+            color: #1A1F2E;
+        }
+
+        .subpaso-estado {
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: white;
+            border: 1px solid rgba(194, 162, 126, 0.2);
+            color: #5F6482;
+        }
+
+        /* ===== ERROR ===== */
+        .error-message {
+            text-align: center;
+            padding: 60px 40px;
+            background: white;
+            border-radius: 40px;
+            border: 1px solid rgba(194, 162, 126, 0.2);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
+        }
+
+        .error-message h2 {
+            color: #3A0F14;
+            margin-bottom: 16px;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        .error-message p {
+            color: #8F95B2;
+            font-size: 16px;
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(194, 162, 126, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.3); }
+        }
+
+        .service-badge {
+            animation: pulseGlow 3s infinite;
         }
 
         /* Responsive */
@@ -691,7 +681,8 @@
                                 if (paso.subpasos && paso.subpasos.length > 0) {
                                     subpasosHtml = '<div class="subpasos-container">';
                                     paso.subpasos.forEach(sub => {
-                                        const dotClass = sub.estado === 'completado' ? 'completado' : 'pendiente';
+                                        const dotClass = sub.estado === 'completado' ? 'completado' : 
+                                                        sub.estado === 'en_progreso' ? 'progreso' : 'pendiente';
                                         subpasosHtml += `
                                             <div class="subpaso-item" onclick="toggleSubpaso(this)">
                                                 <span class="subpaso-dot ${dotClass}"></span>
@@ -720,12 +711,12 @@
                             });
                             pasosHtml += '</div>';
                         } else {
-                            pasosHtml = '<p style="color: #9A9CB0; text-align: center; padding: 30px;">✨ No hay pasos definidos en esta fase</p>';
+                            pasosHtml = '<p style="color: #8F95B2; text-align: center; padding: 30px;">✨ No hay pasos definidos en esta fase</p>';
                         }
                         
                         fasesHtml += `
                             <div class="fase-card">
-                                <div class="fase-header" onclick="toggleFase('fase-${idx}', this)" aria-expanded="false">
+                                <div class="fase-header" onclick="toggleFase('fase-${idx}', this)" aria-expanded="true">
                                     <div class="fase-titulo">
                                         <span class="fase-nombre">${fase.nombre}</span>
                                         <span class="fase-estado-badge ${estadoClass}">${estadoTexto}</span>
@@ -742,7 +733,7 @@
                     });
                     fasesHtml += '</div>';
                 } else {
-                    fasesHtml = '<div style="text-align: center; padding: 60px; background: rgba(20,22,36,0.4); border-radius: 40px;"><p style="color: #9A9CB0; font-size: 16px;">📋 No hay fases definidas para este proceso</p></div>';
+                    fasesHtml = '<div style="text-align: center; padding: 60px; background: white; border-radius: 40px;"><p style="color: #8F95B2; font-size: 16px;">📋 No hay fases definidas para este proceso</p></div>';
                 }
 
                 container.innerHTML = `
@@ -769,6 +760,7 @@
                                 <div class="card-content">
                                     <span class="card-label">Cliente</span>
                                     <span class="card-value">${proceso.cliente.nombre || 'No especificado'}</span>
+                                    <span class="card-subvalue">"${proceso.cliente.apodo || 'Sin apodo'}"</span>
                                 </div>
                             </div>
 
@@ -803,36 +795,36 @@
                                 <div class="progress-fill" style="width: ${progreso.porcentaje || 0}%;"></div>
                             </div>
                             <div class="progress-footer">
-                                <span><i class="fas fa-check-circle" style="color: #6FD08C;"></i> ${totalCompletados} completados</span>
-                                <span><i class="fas fa-hourglass-half" style="color: #FFA07A;"></i> ${totalPasos - totalCompletados} pendientes</span>
+                                <span><i class="fas fa-check-circle" style="color: #10B981;"></i> ${totalCompletados} completados</span>
+                                <span><i class="fas fa-hourglass-half" style="color: #F59E0B;"></i> ${totalPasos - totalCompletados} pendientes</span>
                             </div>
                         </div>
                     </div>
 
                     ${fasesHtml}
 
-                    <div style="text-align: center; color: #6A6C86; font-size: 12px; margin-top: 24px; letter-spacing: 0.5px;">
-                        <i class="fas fa-shield-alt" style="margin-right: 5px;"></i> Portal seguro · Actualización en tiempo real
+                    <div style="text-align: center; color: #A5A9C5; font-size: 12px; margin-top: 24px; letter-spacing: 0.5px;">
+                        <i class="fas fa-shield-alt" style="margin-right: 5px; color: #C2A27E;"></i> Portal seguro · Actualización en tiempo real
                     </div>
                 `;
             });
         }
 
         window.toggleFase = function(id, header) {
-    const elemento = document.getElementById(id);
-    const flecha = header.querySelector('.flecha');
-    const expanded = header.getAttribute('aria-expanded') === 'true' ? false : true;
-    
-    header.setAttribute('aria-expanded', expanded);
-    
-    if (expanded) {
-        elemento.style.display = 'block';
-        flecha.classList.remove('rotado');
-    } else {
-        elemento.style.display = 'none';
-        flecha.classList.add('rotado');
-    }
-};
+            const elemento = document.getElementById(id);
+            const flecha = header.querySelector('.flecha');
+            const expanded = header.getAttribute('aria-expanded') === 'true' ? false : true;
+            
+            header.setAttribute('aria-expanded', expanded);
+            
+            if (expanded) {
+                elemento.style.display = 'block';
+                flecha.classList.remove('rotado');
+            } else {
+                elemento.style.display = 'none';
+                flecha.classList.add('rotado');
+            }
+        };
 
         window.toggleSubpaso = function(element) {
             element.classList.toggle('subpaso-item-active');
