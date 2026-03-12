@@ -819,16 +819,22 @@
         }
 
         window.toggleFase = function(id, header) {
-            const elemento = document.getElementById(id);
-            const expanded = header.getAttribute('aria-expanded') === 'true' ? false : true;
-            header.setAttribute('aria-expanded', expanded);
-            
-            if (elemento.style.display === 'none') {
-                elemento.style.display = 'block';
-            } else {
-                elemento.style.display = 'none';
-            }
-        };
+    const elemento = document.getElementById(id);
+    const expanded = header.getAttribute('aria-expanded') === 'true' ? false : true;
+    header.setAttribute('aria-expanded', expanded);
+    
+    // Obtener el ID de la flecha (lo generaste como flecha-${idx})
+    const flechaId = id.replace('fase-', 'flecha-');
+    const flecha = document.getElementById(flechaId);
+    
+    if (elemento.style.display === 'none') {
+        elemento.style.display = 'block';
+        flecha.classList.remove('rotado');
+    } else {
+        elemento.style.display = 'none';
+        flecha.classList.add('rotado');
+    }
+};
 
         window.toggleSubpaso = function(element) {
             element.classList.toggle('subpaso-item-active');
