@@ -725,7 +725,7 @@
                         
                         fasesHtml += `
                             <div class="fase-card">
-                                <div class="fase-header" onclick="toggleFase('fase-${idx}', this)" aria-expanded="true">
+                                <div class="fase-header" onclick="toggleFase('fase-${idx}', this)" aria-expanded="false">
                                     <div class="fase-titulo">
                                         <span class="fase-nombre">${fase.nombre}</span>
                                         <span class="fase-estado-badge ${estadoClass}">${estadoTexto}</span>
@@ -820,14 +820,12 @@
 
         window.toggleFase = function(id, header) {
     const elemento = document.getElementById(id);
+    const flecha = header.querySelector('.flecha');
     const expanded = header.getAttribute('aria-expanded') === 'true' ? false : true;
+    
     header.setAttribute('aria-expanded', expanded);
     
-    // Obtener el ID de la flecha (lo generaste como flecha-${idx})
-    const flechaId = id.replace('fase-', 'flecha-');
-    const flecha = document.getElementById(flechaId);
-    
-    if (elemento.style.display === 'none') {
+    if (expanded) {
         elemento.style.display = 'block';
         flecha.classList.remove('rotado');
     } else {
