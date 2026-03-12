@@ -673,8 +673,9 @@ function guardarProceso() {
         //Se actualizó para colocar firebase
         // Editar proceso
 // Editar proceso
+// Editar proceso
 function editarProceso(id) {
-    // Mostrar el formulario primero
+    // Mostrar el formulario
     mostrarFormulario();
     
     // Buscar el proceso en Firebase
@@ -683,7 +684,7 @@ function editarProceso(id) {
         const proceso = snapshot.val();
         
         if (proceso) {
-            // Llenar el formulario con los datos
+            // Llenar el formulario
             document.getElementById('servicio').value = proceso.servicio.nombre || '';
             document.getElementById('expediente').value = proceso.servicio.expediente || '';
             document.getElementById('clienteNombre').value = proceso.cliente.nombre || '';
@@ -692,14 +693,12 @@ function editarProceso(id) {
             document.getElementById('idInterno').value = proceso.servicio.idInterno || '';
             document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio || '';
             
-            // Cargar los pasos
             pasosTemporales = proceso.pasos || [];
             actualizarGridPasos();
             
-            // Guardar el ID en el campo oculto
+            // 👇 ESTO ES LO IMPORTANTE - guardar el ID
             document.getElementById('procesoId').value = id;
             
-            // Cambiar el título del formulario
             document.getElementById('formTitulo').textContent = 'Editar Proceso';
         }
     }, { onlyOnce: true });
