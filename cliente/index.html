@@ -319,7 +319,7 @@
         <!-- El contenido se cargará dinámicamente -->
     </div>
 
-    <script>
+    <script type="module">
         // Importar Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -535,6 +535,14 @@ function cargarDashboard() {
 
         // Opcional: Recargar cada 30 segundos para ver actualizaciones
         // setInterval(cargarDashboard, 30000);
+    
+        // Hacer funciones globales
+window.getParameterByName = getParameterByName;
+window.formatearFecha = formatearFecha;
+window.getEstadoTexto = getEstadoTexto;
+window.getEstadoClass = getEstadoClass;
+window.getEstadoIcono = getEstadoIcono;
+window.cargarDashboard = cargarDashboard;
     </script>
 </body>
 </html>
