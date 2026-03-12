@@ -679,8 +679,7 @@ function guardarProceso() {
         });
     }
 }
-// Función para enviar email al cliente
-html: `<!DOCTYPE html>
+// Función para enviar email al cliente`<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -766,7 +765,7 @@ html: `<!DOCTYPE html>
                 ${proceso.pasos.length > 3 ? '<p style="color: #8b9aab; font-size: 13px; margin-top: 12px; text-align: right;">+ ' + (proceso.pasos.length - 3) + ' paso(s) más en el panel</p>' : ''}
             </div>
             ` : ''}
-            
+
             <!-- Botón suave pero visible, con mensaje claro -->
             <div style="text-align: center; margin: 35px 0 20px;">
                 <a href="https://dashboard.conlecol.com/cliente/?id=${proceso.id}" 
