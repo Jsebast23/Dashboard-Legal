@@ -7,11 +7,16 @@
     {
       "src": "cliente/index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "admin/login.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     { "src": "/admin", "dest": "/admin/index.html" },
     { "src": "/admin/", "dest": "/admin/index.html" },
+    { "src": "/admin/login.html", "dest": "/admin/login.html" },
     { "src": "/cliente", "dest": "/cliente/index.html" },
     { "src": "/cliente/", "dest": "/cliente/index.html" }
   ]
