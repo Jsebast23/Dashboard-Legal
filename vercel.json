@@ -23,6 +23,6 @@
     { "src": "/admin/login.html", "dest": "/admin/login.html" },
     { "src": "/cliente", "dest": "/cliente/index.html" },
     { "src": "/cliente/", "dest": "/cliente/index.html" },
-    { "src": "/api/(.*)", "dest": "/api/$1" }
+    { "src": "/api/(.*)", "dest": "/api/send-email.js" }
   ]
 }
