@@ -812,6 +812,19 @@ function eliminarProceso(id) {
 
         // Cargar procesos al iniciar
         cargarProcesos();
+
+        // Hacer funciones globales para los onclick
+window.mostrarFormulario = mostrarFormulario;
+window.mostrarFormularioPaso = mostrarFormularioPaso;
+window.guardarPaso = guardarPaso;
+window.cancelarFormularioPaso = cancelarFormularioPaso;
+window.eliminarPaso = eliminarPaso;
+window.guardarProceso = guardarProceso;
+window.cancelarFormulario = cancelarFormulario;
+window.editarProceso = editarProceso;
+window.eliminarProceso = eliminarProceso;
+window.copiarLink = copiarLink;
+window.toggleProceso = toggleProceso;
     </script>
 </body>
 </html>
