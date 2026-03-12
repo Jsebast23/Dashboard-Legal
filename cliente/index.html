@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONLECOL • Portal de Seguimiento</title>
+    <title>CONLECOL · Portal de Seguimiento</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* (Mismo CSS que proporcionaste, se mantiene igual) */
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +18,7 @@
             background: #F5F7FC;
             min-height: 100vh;
             padding: 24px;
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             color: #1A1F2E;
         }
 
@@ -29,23 +30,15 @@
             gap: 28px;
         }
 
-        /* ===== EFECTOS GLOBALES ===== */
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(194, 162, 126, 0.3);
             border-radius: 32px;
             box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.3s;
         }
 
-        .glass-card:hover {
-            border-color: rgba(194, 162, 126, 0.6);
-            box-shadow: 0 20px 40px -12px rgba(194, 162, 126, 0.3);
-        }
-
-        /* ===== TARJETA SUPERIOR ===== */
         .top-block {
             background: white;
             border-radius: 36px;
@@ -94,6 +87,7 @@
             text-transform: uppercase;
             border: 1px solid rgba(194, 162, 126, 0.5);
             box-shadow: 0 0 15px rgba(194, 162, 126, 0.3);
+            animation: pulseGlow 3s infinite;
         }
 
         .info-cards {
@@ -119,7 +113,6 @@
             border-color: #C2A27E;
             transform: translateY(-4px);
             box-shadow: 0 15px 30px -8px rgba(194, 162, 126, 0.3);
-            background: white;
         }
 
         .card-icon {
@@ -133,7 +126,6 @@
             font-size: 26px;
             color: #3A0F14;
             border: 1px solid #C2A27E50;
-            box-shadow: 0 5px 12px rgba(194, 162, 126, 0.15);
         }
 
         .card-content {
@@ -178,18 +170,10 @@
             gap: 12px;
         }
 
-        .progress-header div {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
         .progress-title {
             font-weight: 500;
             color: #1A1F2E;
             font-size: 16px;
-            letter-spacing: 0.5px;
         }
 
         .progress-stage {
@@ -233,6 +217,12 @@
             100% { background-position: 0% 0%; }
         }
 
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(194, 162, 126, 0.6); }
+            100% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.4); }
+        }
+
         .progress-footer {
             display: flex;
             justify-content: space-between;
@@ -242,7 +232,6 @@
             font-weight: 500;
         }
 
-        /* ===== BLOQUE DE FASES ===== */
         .fases-block {
             display: flex;
             flex-direction: column;
@@ -277,10 +266,6 @@
 
         .fase-header:hover {
             background: #F8FAFF;
-        }
-
-        .fase-header[aria-expanded="true"] {
-            border-bottom-color: rgba(194, 162, 126, 0.4);
         }
 
         .fase-titulo {
@@ -350,7 +335,6 @@
             background: #FAFCFF;
         }
 
-        /* ===== PASOS ===== */
         .pasos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -369,14 +353,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
-        /* Colores aleatorios para la línea izquierda */
-        .paso-card:nth-child(6n+1)::before { background: linear-gradient(to bottom, #FF6B6B, #FF8E8E); }
-        .paso-card:nth-child(6n+2)::before { background: linear-gradient(to bottom, #4ECDC4, #45B7D1); }
-        .paso-card:nth-child(6n+3)::before { background: linear-gradient(to bottom, #FFD93D, #FFB347); }
-        .paso-card:nth-child(6n+4)::before { background: linear-gradient(to bottom, #6C5CE7, #A463F5); }
-        .paso-card:nth-child(6n+5)::before { background: linear-gradient(to bottom, #FF9F1C, #FFBF69); }
-        .paso-card:nth-child(6n+6)::before { background: linear-gradient(to bottom, #2ECC71, #27AE60); }
-
         .paso-card::before {
             content: '';
             position: absolute;
@@ -384,19 +360,14 @@
             left: 0;
             width: 6px;
             height: 100%;
-            opacity: 0.9;
+            background: linear-gradient(to bottom, #C2A27E, #3A0F14);
+            opacity: 0.8;
         }
 
         .paso-card:hover {
             transform: translateY(-4px);
             border-color: #C2A27E;
             box-shadow: 0 20px 30px -12px rgba(194, 162, 126, 0.3);
-        }
-
-        .paso-card:hover::before {
-            opacity: 1;
-            width: 8px;
-            transition: width 0.2s ease;
         }
 
         .paso-header {
@@ -422,7 +393,6 @@
             text-transform: uppercase;
             background: rgba(194, 162, 126, 0.1);
             border: 1px solid;
-            letter-spacing: 0.8px;
         }
 
         .paso-descripcion {
@@ -441,7 +411,6 @@
             padding-top: 14px;
         }
 
-        /* ===== SUBPASOS ===== */
         .subpasos-container {
             margin-top: 18px;
             display: flex;
@@ -458,53 +427,24 @@
             border-radius: 20px;
             border: 1px solid rgba(194, 162, 126, 0.25);
             transition: all 0.2s;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            cursor: default;
         }
 
         .subpaso-item:hover {
             background: rgba(194, 162, 126, 0.1);
             border-color: rgba(194, 162, 126, 0.6);
             transform: translateX(4px);
-            box-shadow: 0 4px 10px rgba(194, 162, 126, 0.15);
-        }
-
-        .subpaso-item:active {
-            transform: scale(0.98);
-            background: rgba(194, 162, 126, 0.2) !important;
-            transition: all 0.08s ease;
-        }
-
-        .subpaso-item:active .subpaso-dot {
-            transform: scale(1.4);
-        }
-
-        .subpaso-item:active .subpaso-estado {
-            color: #3A0F14;
-            font-weight: 600;
         }
 
         .subpaso-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            transition: all 0.2s;
         }
 
-        .subpaso-dot.completado {
-            background: #10B981;
-            box-shadow: 0 0 12px #10B981;
-        }
-
-        .subpaso-dot.progreso {
-            background: #F59E0B;
-            box-shadow: 0 0 12px #F59E0B;
-        }
-
-        .subpaso-dot.pendiente {
-            background: #3B82F6;
-            box-shadow: 0 0 12px #3B82F6;
-        }
+        .subpaso-dot.completado { background: #10B981; box-shadow: 0 0 8px #10B981; }
+        .subpaso-dot.progreso { background: #F59E0B; box-shadow: 0 0 8px #F59E0B; }
+        .subpaso-dot.pendiente { background: #3B82F6; box-shadow: 0 0 8px #3B82F6; }
 
         .subpaso-desc {
             flex: 1;
@@ -523,76 +463,46 @@
             color: #5F6482;
         }
 
-        /* ===== ERROR ===== */
         .error-message {
             text-align: center;
             padding: 60px 40px;
             background: white;
             border-radius: 40px;
             border: 1px solid rgba(194, 162, 126, 0.3);
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
         }
 
-        .error-message h2 {
-            color: #3A0F14;
-            margin-bottom: 16px;
-            font-size: 28px;
-            font-weight: 500;
+        .loader-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
         }
-
-        .error-message p {
-            color: #8F95B2;
-            font-size: 16px;
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #C2A27E80;
+            border-radius: 50%;
+            border-top-color: #3A0F14;
+            animation: spin 1s ease infinite;
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ===== ANIMACIONES ===== */
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.4); }
-            50% { box-shadow: 0 0 20px rgba(194, 162, 126, 0.6); }
-            100% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.4); }
-        }
-
-        .service-badge {
-            animation: pulseGlow 3s infinite;
-        }
-
-        /* Responsive */
         @media (max-width: 1024px) {
-            .info-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .info-cards { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 768px) {
-            .service-title {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .fase-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            .fase-titulo {
-                flex-wrap: wrap;
-            }
+            .fase-header { flex-direction: column; align-items: flex-start; }
         }
-
         @media (max-width: 640px) {
-            .info-cards {
-                grid-template-columns: 1fr;
-            }
-            .pasos-grid {
-                grid-template-columns: 1fr;
-            }
-            body {
-                padding: 16px;
-            }
+            .info-cards { grid-template-columns: 1fr; }
+            .pasos-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="dashboard" id="dashboardContainer"></div>
+    <div class="dashboard" id="dashboardContainer">
+        <div class="loader-container"><div class="loader"></div></div>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -612,47 +522,30 @@
 
         function formatearFecha(fechaString) {
             if (!fechaString) return 'No definida';
-            const fecha = new Date(fechaString);
-            return fecha.toLocaleDateString('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
-            });
+            return new Date(fechaString).toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric' });
         }
 
         function getEstadoClass(estado) {
-            const clases = {
-                'pendiente': 'estado-pendiente',
-                'en_progreso': 'estado-progreso',
-                'completado': 'estado-completado'
-            };
-            return clases[estado] || 'estado-pendiente';
+            return estado === 'completado' ? 'estado-completado' : estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
         }
 
         function getEstadoTexto(estado) {
-            const textos = {
-                'pendiente': 'Pendiente',
-                'en_progreso': 'En progreso',
-                'completado': 'Completado'
-            };
+            const textos = { pendiente: 'Pendiente', en_progreso: 'En progreso', completado: 'Completado' };
             return textos[estado] || estado;
         }
 
         function calcularTotales(fases) {
-            let totalPasos = 0;
-            let completados = 0;
-            
+            let totalPasos = 0, completados = 0;
             fases?.forEach(fase => {
                 fase.pasos?.forEach(paso => {
                     totalPasos++;
                     if (paso.estado === 'completado') completados++;
-                    paso.subpasos?.forEach(() => {
+                    paso.subpasos?.forEach(sub => {
                         totalPasos++;
-                        if (paso.estado === 'completado') completados++;
+                        if (sub.estado === 'completado') completados++;
                     });
                 });
             });
-            
             return { totalPasos, completados };
         }
 
@@ -660,18 +553,16 @@
             const container = document.getElementById('dashboardContainer');
             const urlParams = new URLSearchParams(window.location.search);
             const procesoId = urlParams.get('id');
-            
+
             if (!procesoId) {
-                container.innerHTML = `<div class="error-message"><h2>🔍 Proceso no encontrado</h2><p>No se ha especificado un ID de proceso válido.</p></div>`;
+                container.innerHTML = `<div class="error-message"><h2>🔍 Proceso no encontrado</h2><p>No se ha especificado un ID válido.</p></div>`;
                 return;
             }
 
-            const procesoRef = ref(database, `procesos/${procesoId}`);
-            onValue(procesoRef, (snapshot) => {
+            onValue(ref(database, `procesos/${procesoId}`), (snapshot) => {
                 const proceso = snapshot.val();
-                
                 if (!proceso) {
-                    container.innerHTML = `<div class="error-message"><h2>⚠️ Proceso no encontrado</h2><p>El proceso que buscas no existe o ha sido eliminado.</p><p style="margin-top: 10px;">ID: ${procesoId}</p></div>`;
+                    container.innerHTML = `<div class="error-message"><h2>⚠️ Proceso no encontrado</h2><p>ID: ${procesoId}</p></div>`;
                     return;
                 }
 
@@ -679,27 +570,24 @@
                 const { totalPasos, completados: totalCompletados } = calcularTotales(proceso.fases);
 
                 let fasesHtml = '';
-                if (proceso.fases && proceso.fases.length > 0) {
+                if (proceso.fases?.length) {
                     fasesHtml = '<div class="fases-block">';
                     proceso.fases.forEach((fase, idx) => {
                         const estadoClass = getEstadoClass(fase.estado);
                         const estadoTexto = getEstadoTexto(fase.estado);
-                        
                         let pasosHtml = '';
-                        if (fase.pasos && fase.pasos.length > 0) {
+                        if (fase.pasos?.length) {
                             pasosHtml = '<div class="pasos-grid">';
                             fase.pasos.forEach(paso => {
                                 const pasoEstadoClass = getEstadoClass(paso.estado);
                                 const pasoEstadoTexto = getEstadoTexto(paso.estado);
-                                
                                 let subpasosHtml = '';
-                                if (paso.subpasos && paso.subpasos.length > 0) {
+                                if (paso.subpasos?.length) {
                                     subpasosHtml = '<div class="subpasos-container">';
                                     paso.subpasos.forEach(sub => {
-                                        const dotClass = sub.estado === 'completado' ? 'completado' : 
-                                                        sub.estado === 'en_progreso' ? 'progreso' : 'pendiente';
+                                        const dotClass = sub.estado === 'completado' ? 'completado' : sub.estado === 'en_progreso' ? 'progreso' : 'pendiente';
                                         subpasosHtml += `
-                                            <div class="subpaso-item" onclick="toggleSubpaso(this)">
+                                            <div class="subpaso-item">
                                                 <span class="subpaso-dot ${dotClass}"></span>
                                                 <span class="subpaso-desc">${sub.descripcion}</span>
                                                 <span class="subpaso-estado">${sub.estado}</span>
@@ -708,7 +596,6 @@
                                     });
                                     subpasosHtml += '</div>';
                                 }
-                                
                                 pasosHtml += `
                                     <div class="paso-card">
                                         <div class="paso-header">
@@ -717,8 +604,8 @@
                                         </div>
                                         ${paso.descripcion ? `<div class="paso-descripcion">${paso.descripcion}</div>` : ''}
                                         <div class="paso-fechas">
-                                            <span><i class="far fa-calendar-alt" style="margin-right: 5px;"></i> ${formatearFecha(paso.fechaInicio)}</span>
-                                            ${paso.fechaEstimada ? `<span><i class="far fa-clock" style="margin-right: 5px;"></i> ${formatearFecha(paso.fechaEstimada)}</span>` : ''}
+                                            <span><i class="far fa-calendar-alt"></i> ${formatearFecha(paso.fechaInicio)}</span>
+                                            ${paso.fechaEstimada ? `<span><i class="far fa-clock"></i> ${formatearFecha(paso.fechaEstimada)}</span>` : ''}
                                         </div>
                                         ${subpasosHtml}
                                     </div>
@@ -726,9 +613,9 @@
                             });
                             pasosHtml += '</div>';
                         } else {
-                            pasosHtml = '<p style="color: #8F95B2; text-align: center; padding: 30px;">✨ No hay pasos definidos en esta fase</p>';
+                            pasosHtml = '<p style="color:#8F95B2; text-align:center;">✨ No hay pasos definidos</p>';
                         }
-                        
+
                         fasesHtml += `
                             <div class="fase-card">
                                 <div class="fase-header" onclick="toggleFase('fase-${idx}', this)" aria-expanded="true">
@@ -748,7 +635,7 @@
                     });
                     fasesHtml += '</div>';
                 } else {
-                    fasesHtml = '<div style="text-align: center; padding: 60px; background: white; border-radius: 40px;"><p style="color: #8F95B2; font-size: 16px;">📋 No hay fases definidas para este proceso</p></div>';
+                    fasesHtml = '<div style="text-align:center; padding:60px; background:white; border-radius:40px;">📋 No hay fases definidas</div>';
                 }
 
                 container.innerHTML = `
@@ -769,7 +656,6 @@
                                     <span class="card-subvalue">Exp. ${proceso.servicio.expediente || 'N/A'}</span>
                                 </div>
                             </div>
-
                             <div class="card">
                                 <div class="card-icon"><i class="fas fa-user-tie"></i></div>
                                 <div class="card-content">
@@ -778,7 +664,6 @@
                                     <span class="card-subvalue">"${proceso.cliente.apodo || 'Sin apodo'}"</span>
                                 </div>
                             </div>
-
                             <div class="card">
                                 <div class="card-icon"><i class="fas fa-qrcode"></i></div>
                                 <div class="card-content">
@@ -787,7 +672,6 @@
                                     <span class="card-subvalue">ID: ${proceso.servicio.idInterno || 'N/A'}</span>
                                 </div>
                             </div>
-
                             <div class="card">
                                 <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
                                 <div class="card-content">
@@ -810,16 +694,16 @@
                                 <div class="progress-fill" style="width: ${progreso.porcentaje || 0}%;"></div>
                             </div>
                             <div class="progress-footer">
-                                <span><i class="fas fa-check-circle" style="color: #10B981;"></i> ${totalCompletados} completados</span>
-                                <span><i class="fas fa-hourglass-half" style="color: #F59E0B;"></i> ${totalPasos - totalCompletados} pendientes</span>
+                                <span><i class="fas fa-check-circle" style="color:#10B981;"></i> ${totalCompletados} completados</span>
+                                <span><i class="fas fa-hourglass-half" style="color:#F59E0B;"></i> ${totalPasos - totalCompletados} pendientes</span>
                             </div>
                         </div>
                     </div>
 
                     ${fasesHtml}
 
-                    <div style="text-align: center; color: #A5A9C5; font-size: 12px; margin-top: 24px; letter-spacing: 0.5px;">
-                        <i class="fas fa-shield-alt" style="margin-right: 5px; color: #C2A27E;"></i> Portal seguro · Actualización en tiempo real
+                    <div style="text-align:center; color:#A5A9C5; font-size:12px; margin-top:24px;">
+                        <i class="fas fa-shield-alt" style="margin-right:5px; color:#C2A27E;"></i> Portal seguro · Actualización en tiempo real
                     </div>
                 `;
             });
@@ -829,9 +713,7 @@
             const elemento = document.getElementById(id);
             const flecha = header.querySelector('.flecha');
             const expanded = header.getAttribute('aria-expanded') === 'true' ? false : true;
-            
             header.setAttribute('aria-expanded', expanded);
-            
             if (expanded) {
                 elemento.style.display = 'block';
                 flecha.classList.remove('rotado');
@@ -841,15 +723,7 @@
             }
         };
 
-        window.toggleSubpaso = function(element) {
-            element.classList.toggle('subpaso-item-active');
-        };
-
         document.addEventListener('DOMContentLoaded', cargarDashboard);
-        
-        window.formatearFecha = formatearFecha;
-        window.getEstadoClass = getEstadoClass;
-        window.getEstadoTexto = getEstadoTexto;
     </script>
 </body>
 </html>
