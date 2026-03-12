@@ -698,25 +698,82 @@ async function enviarEmailCliente(proceso) {
             body: JSON.stringify({
                 to: proceso.cliente.email,
                 subject: `⚖️ Tu caso legal ha sido actualizado - ${proceso.servicio.nombre}`,
-                html: `
-                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-                        <h2>Hola ${proceso.cliente.nombre},</h2>
-                        <p>Tu caso <strong>${proceso.servicio.nombre}</strong> ha sido actualizado.</p>
-                        <div style="background: #f7fafc; padding: 20px; border-radius: 8px;">
-                            <p><strong>Fase:</strong> ${proceso.progreso.fase}</p>
-                            <p><strong>Progreso:</strong> ${proceso.progreso.porcentaje}%</p>
-                        </div>
-                        <p>
-                            <a href="https://dashboard.conlecol.com/cliente/?id=${proceso.id}">
-                                Ver mi caso
-                            </a>
-                        </p>
-                    </div>
-                `
+                html: `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualización de tu caso legal</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9;">
+    <div style="max-width: 600px; margin: 20px auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        
+        <!-- Cabecera profesional -->
+        <div style="background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%); padding: 30px 20px; text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 10px;">⚖️</div>
+            <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 400;">Consultoría Legal</h1>
+            <p style="color: #90cdf4; margin: 5px 0 0 0; font-size: 14px;">Notificación de avance de caso</p>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div style="padding: 40px 30px;">
+            <div style="background-color: #ebf8ff; border-left: 4px solid #4299e1; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                <p style="margin: 0; color: #2c5282; font-size: 18px;">
+                    Hola <strong style="font-weight: 600;">${proceso.cliente.nombre}</strong>,
+                </p>
+            </div>
+            
+            <p style="color: #4a5568; font-size: 16px; line-height: 1.6; margin-bottom: 25px;">
+                Te informamos que tu caso <strong style="color: #2d3748;">${proceso.servicio.nombre}</strong> 
+                ha sido actualizado.
+            </p>
+            
+            <!-- Botón de acción -->
+            <div style="text-align: center; margin: 35px 0;">
+                <a href="https://dashboard.conlecol.com/cliente/?id=${proceso.id}" 
+                   style="background: linear-gradient(135deg, #4299e1, #3182ce); 
+                          color: white; 
+                          padding: 14px 30px; 
+                          text-decoration: none; 
+                          border-radius: 8px; 
+                          font-weight: 500;
+                          font-size: 16px;
+                          display: inline-block;
+                          box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    🔍 Ver mi caso en detalle
+                </a>
+            </div>
+            
+            <!-- Footer -->
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 25px; margin-top: 25px;">
+                <p style="color: #718096; font-size: 14px; line-height: 1.6; margin: 0; text-align: center;">
+                    ¿Tienes dudas? Contacta a tu asesor legal.<br>
+                    <span style="color: #a0aec0; font-size: 12px;">Este es un mensaje automático</span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="background: #f7fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p style="color: #a0aec0; font-size: 12px; margin: 0;">
+                ⚖️ ${proceso.servicio.nombre} • ID: ${proceso.id}<br>
+                © ${new Date().getFullYear()} Consultoría Legal
+            </p>
+        </div>
+    </div>
+</body>
+</html>`
             })
         });
+
+        if (response.ok) {
+            console.log('✅ Email enviado correctamente a', proceso.cliente.email);
+        } else {
+            const error = await response.json();
+            console.error('❌ Error al enviar email:', error);
+        }
     } catch (error) {
-        console.error('Error:', error);
+        console.error('❌ Error en la petición:', error);
     }
 }
 
