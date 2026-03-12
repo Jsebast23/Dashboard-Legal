@@ -672,28 +672,36 @@ function guardarProceso() {
 
         //Se actualizó para colocar firebase
         // Editar proceso
+// Editar proceso
 function editarProceso(id) {
-    const procesosRef = ref(database, 'procesos');
-    onValue(procesosRef, (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-            if (childSnapshot.key === id) {
-                const proceso = childSnapshot.val();
-                
-                document.getElementById('servicio').value = proceso.servicio.nombre;
-                document.getElementById('expediente').value = proceso.servicio.expediente;
-                document.getElementById('clienteNombre').value = proceso.cliente.nombre;
-                document.getElementById('clienteApodo').value = proceso.cliente.apodo;
-                document.getElementById('codigoServicio').value = proceso.servicio.codigo;
-                document.getElementById('idInterno').value = proceso.servicio.idInterno;
-                document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio;
-                
-                pasosTemporales = proceso.pasos || [];
-                actualizarGridPasos();
-                
-                document.getElementById('procesoId').value = id;
-                mostrarFormulario(proceso);
-            }
-        });
+    // Mostrar el formulario primero
+    mostrarFormulario();
+    
+    // Buscar el proceso en Firebase
+    const procesoRef = ref(database, `procesos/${id}`);
+    onValue(procesoRef, (snapshot) => {
+        const proceso = snapshot.val();
+        
+        if (proceso) {
+            // Llenar el formulario con los datos
+            document.getElementById('servicio').value = proceso.servicio.nombre || '';
+            document.getElementById('expediente').value = proceso.servicio.expediente || '';
+            document.getElementById('clienteNombre').value = proceso.cliente.nombre || '';
+            document.getElementById('clienteApodo').value = proceso.cliente.apodo || '';
+            document.getElementById('codigoServicio').value = proceso.servicio.codigo || '';
+            document.getElementById('idInterno').value = proceso.servicio.idInterno || '';
+            document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio || '';
+            
+            // Cargar los pasos
+            pasosTemporales = proceso.pasos || [];
+            actualizarGridPasos();
+            
+            // Guardar el ID en el campo oculto
+            document.getElementById('procesoId').value = id;
+            
+            // Cambiar el título del formulario
+            document.getElementById('formTitulo').textContent = 'Editar Proceso';
+        }
     }, { onlyOnce: true });
 }
 
