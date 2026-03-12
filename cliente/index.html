@@ -34,15 +34,15 @@
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(194, 162, 126, 0.2);
+            border: 1px solid rgba(194, 162, 126, 0.3);
             border-radius: 32px;
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .glass-card:hover {
-            border-color: rgba(194, 162, 126, 0.5);
-            box-shadow: 0 20px 40px -12px rgba(194, 162, 126, 0.25);
+            border-color: rgba(194, 162, 126, 0.6);
+            box-shadow: 0 20px 40px -12px rgba(194, 162, 126, 0.3);
         }
 
         /* ===== TARJETA SUPERIOR ===== */
@@ -50,14 +50,14 @@
             background: white;
             border-radius: 36px;
             padding: 32px;
-            border: 1px solid rgba(194, 162, 126, 0.2);
-            box-shadow: 0 25px 40px -18px rgba(58, 15, 20, 0.1);
+            border: 1px solid rgba(194, 162, 126, 0.3);
+            box-shadow: 0 25px 40px -18px rgba(58, 15, 20, 0.15);
         }
 
         .service-header {
             margin-bottom: 28px;
             padding-bottom: 24px;
-            border-bottom: 1px solid rgba(194, 162, 126, 0.2);
+            border-bottom: 1px solid rgba(194, 162, 126, 0.25);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -92,8 +92,8 @@
             font-weight: 600;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            border: 1px solid rgba(194, 162, 126, 0.4);
-            box-shadow: 0 0 15px rgba(194, 162, 126, 0.2);
+            border: 1px solid rgba(194, 162, 126, 0.5);
+            box-shadow: 0 0 15px rgba(194, 162, 126, 0.3);
         }
 
         .info-cards {
@@ -105,20 +105,20 @@
 
         .card {
             background: white;
-            border: 1px solid rgba(194, 162, 126, 0.15);
+            border: 1px solid rgba(194, 162, 126, 0.25);
             border-radius: 28px;
             padding: 22px 18px;
             display: flex;
             align-items: center;
             gap: 16px;
             transition: all 0.25s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            box-shadow: 0 8px 20px -8px rgba(0,0,0,0.05);
         }
 
         .card:hover {
             border-color: #C2A27E;
             transform: translateY(-4px);
-            box-shadow: 0 15px 30px -8px rgba(194, 162, 126, 0.25);
+            box-shadow: 0 15px 30px -8px rgba(194, 162, 126, 0.3);
             background: white;
         }
 
@@ -132,8 +132,8 @@
             justify-content: center;
             font-size: 26px;
             color: #3A0F14;
-            border: 1px solid #C2A27E40;
-            box-shadow: 0 5px 12px rgba(194, 162, 126, 0.1);
+            border: 1px solid #C2A27E50;
+            box-shadow: 0 5px 12px rgba(194, 162, 126, 0.15);
         }
 
         .card-content {
@@ -166,7 +166,7 @@
             background: #F8FAFF;
             border-radius: 28px;
             padding: 24px;
-            border: 1px solid rgba(194, 162, 126, 0.15);
+            border: 1px solid rgba(194, 162, 126, 0.25);
         }
 
         .progress-header {
@@ -199,7 +199,7 @@
             border-radius: 40px;
             font-size: 13px;
             font-weight: 600;
-            border: 1px solid #C2A27E60;
+            border: 1px solid #C2A27E80;
         }
 
         .progress-percentage {
@@ -223,7 +223,7 @@
             background-size: 200% 100%;
             border-radius: 20px;
             transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            box-shadow: 0 0 20px rgba(194, 162, 126, 0.4);
+            box-shadow: 0 0 20px rgba(194, 162, 126, 0.5);
             animation: gradientMove 3s ease infinite;
         }
 
@@ -252,15 +252,16 @@
         .fase-card {
             background: white;
             border-radius: 36px;
-            border: 1px solid rgba(194, 162, 126, 0.2);
+            border: 1px solid rgba(194, 162, 126, 0.3);
             overflow: hidden;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px -8px rgba(0,0,0,0.03);
+            box-shadow: 0 8px 20px -8px rgba(0,0,0,0.05);
         }
 
         .fase-card:hover {
-            border-color: rgba(194, 162, 126, 0.5);
-            box-shadow: 0 15px 35px -12px rgba(194, 162, 126, 0.25);
+            border-color: rgba(194, 162, 126, 0.7);
+            box-shadow: 0 15px 35px -12px rgba(194, 162, 126, 0.3);
+            transform: translateY(-2px);
         }
 
         .fase-header {
@@ -271,7 +272,7 @@
             background: white;
             cursor: pointer;
             transition: background 0.2s;
-            border-bottom: 1px solid rgba(194, 162, 126, 0.1);
+            border-bottom: 1px solid rgba(194, 162, 126, 0.2);
         }
 
         .fase-header:hover {
@@ -279,7 +280,7 @@
         }
 
         .fase-header[aria-expanded="true"] {
-            border-bottom-color: rgba(194, 162, 126, 0.3);
+            border-bottom-color: rgba(194, 162, 126, 0.4);
         }
 
         .fase-titulo {
@@ -308,19 +309,19 @@
         .estado-pendiente {
             background: #EFF6FF;
             color: #3B82F6;
-            border-color: #3B82F640;
+            border-color: #3B82F6;
         }
 
         .estado-progreso {
             background: #FEF3C7;
             color: #F59E0B;
-            border-color: #F59E0B40;
+            border-color: #F59E0B;
         }
 
         .estado-completado {
             background: #D1FAE5;
             color: #10B981;
-            border-color: #10B98140;
+            border-color: #10B981;
         }
 
         .flecha-container {
@@ -361,11 +362,20 @@
             background: white;
             border-radius: 26px;
             padding: 22px;
-            border: 1px solid rgba(194, 162, 126, 0.15);
+            border: 1px solid rgba(194, 162, 126, 0.3);
             transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
+
+        /* Colores aleatorios para la línea izquierda */
+        .paso-card:nth-child(6n+1)::before { background: linear-gradient(to bottom, #FF6B6B, #FF8E8E); }
+        .paso-card:nth-child(6n+2)::before { background: linear-gradient(to bottom, #4ECDC4, #45B7D1); }
+        .paso-card:nth-child(6n+3)::before { background: linear-gradient(to bottom, #FFD93D, #FFB347); }
+        .paso-card:nth-child(6n+4)::before { background: linear-gradient(to bottom, #6C5CE7, #A463F5); }
+        .paso-card:nth-child(6n+5)::before { background: linear-gradient(to bottom, #FF9F1C, #FFBF69); }
+        .paso-card:nth-child(6n+6)::before { background: linear-gradient(to bottom, #2ECC71, #27AE60); }
 
         .paso-card::before {
             content: '';
@@ -374,14 +384,19 @@
             left: 0;
             width: 6px;
             height: 100%;
-            background: linear-gradient(to bottom, #C2A27E, #3A0F14);
-            opacity: 0.7;
+            opacity: 0.9;
         }
 
         .paso-card:hover {
             transform: translateY(-4px);
             border-color: #C2A27E;
-            box-shadow: 0 20px 30px -12px rgba(194, 162, 126, 0.25);
+            box-shadow: 0 20px 30px -12px rgba(194, 162, 126, 0.3);
+        }
+
+        .paso-card:hover::before {
+            opacity: 1;
+            width: 8px;
+            transition: width 0.2s ease;
         }
 
         .paso-header {
@@ -405,7 +420,7 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            background: rgba(194, 162, 126, 0.05);
+            background: rgba(194, 162, 126, 0.1);
             border: 1px solid;
             letter-spacing: 0.8px;
         }
@@ -441,25 +456,26 @@
             padding: 10px 14px;
             background: #F8FAFF;
             border-radius: 20px;
-            border: 1px solid rgba(194, 162, 126, 0.15);
+            border: 1px solid rgba(194, 162, 126, 0.25);
             transition: all 0.2s;
             cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
 
         .subpaso-item:hover {
-            background: rgba(194, 162, 126, 0.05);
-            border-color: rgba(194, 162, 126, 0.4);
+            background: rgba(194, 162, 126, 0.1);
+            border-color: rgba(194, 162, 126, 0.6);
             transform: translateX(4px);
+            box-shadow: 0 4px 10px rgba(194, 162, 126, 0.15);
         }
 
         .subpaso-item:active {
             transform: scale(0.98);
-            background: rgba(194, 162, 126, 0.15) !important;
+            background: rgba(194, 162, 126, 0.2) !important;
             transition: all 0.08s ease;
         }
 
         .subpaso-item:active .subpaso-dot {
-            box-shadow: 0 0 25px #C2A27E;
             transform: scale(1.4);
         }
 
@@ -472,7 +488,6 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #C2A27E;
             transition: all 0.2s;
         }
 
@@ -504,7 +519,7 @@
             font-weight: 600;
             text-transform: uppercase;
             background: white;
-            border: 1px solid rgba(194, 162, 126, 0.2);
+            border: 1px solid rgba(194, 162, 126, 0.3);
             color: #5F6482;
         }
 
@@ -514,7 +529,7 @@
             padding: 60px 40px;
             background: white;
             border-radius: 40px;
-            border: 1px solid rgba(194, 162, 126, 0.2);
+            border: 1px solid rgba(194, 162, 126, 0.3);
             box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
         }
 
@@ -532,9 +547,9 @@
 
         /* ===== ANIMACIONES ===== */
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(194, 162, 126, 0.5); }
-            100% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.3); }
+            0% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(194, 162, 126, 0.6); }
+            100% { box-shadow: 0 0 5px rgba(194, 162, 126, 0.4); }
         }
 
         .service-badge {
