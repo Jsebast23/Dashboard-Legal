@@ -451,9 +451,7 @@
 // Importar Firebase usando la forma compatible con HTML
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-// 👇 NUEVO: Importar autenticación
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     // Configuración de Firebase
     const firebaseConfig = {
@@ -467,6 +465,13 @@ import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstati
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+const auth = getAuth(app);
+//verificar autenticación
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.href = 'login.html';
+    }
+});
         // Variable global para almacenar los pasos temporales
         let pasosTemporales = [];
 
