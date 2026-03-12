@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Proceso Legal</title>
+    <title>Mi Proceso Legal - CONLECOL</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
 
         body {
-            background-color: #f0f2f5;
+            background-color: #F4F1EC;
             min-height: 100vh;
             padding: 20px;
+            font-family: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         .dashboard {
@@ -23,45 +24,51 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
-        /* Bloque Superior */
+        /* ===== TARJETA SUPERIOR ===== */
         .top-block {
-            background: rgb(250, 250, 250);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 10px 30px -10px rgba(58, 15, 20, 0.1);
+            border: 1px solid rgba(194, 162, 126, 0.2);
         }
 
         .service-header {
             margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #C2A27E;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .service-title {
             display: flex;
             align-items: center;
             gap: 16px;
+            flex-wrap: wrap;
         }
 
         .service-title h2 {
-            color: #2d3748;
-            font-size: 24px;
-            font-weight: 600;
+            color: #3A0F14;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .service-badge {
-            background: #4299e1;
+            background: #C2A27E;
             color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
+            padding: 6px 16px;
+            border-radius: 40px;
             font-size: 14px;
             font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .info-cards {
@@ -72,30 +79,31 @@
         }
 
         .card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
+            background: #FAFAFA;
+            border: 1px solid #E6DDCF;
+            border-radius: 18px;
+            padding: 18px 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             transition: all 0.2s ease;
         }
 
         .card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-color: #4299e1;
+            box-shadow: 0 6px 14px rgba(58, 15, 20, 0.08);
+            border-color: #C2A27E;
         }
 
         .card-icon {
             width: 48px;
             height: 48px;
-            background: #ebf8ff;
-            border-radius: 12px;
+            background: #F4F1EC;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
+            color: #3A0F14;
         }
 
         .card-content {
@@ -105,188 +113,309 @@
         }
 
         .card-label {
-            font-size: 12px;
-            color: #718096;
+            font-size: 11px;
+            color: #8A8A8A;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             margin-bottom: 4px;
+            font-weight: 500;
         }
 
         .card-value {
             font-size: 18px;
             font-weight: 600;
-            color: #2d3748;
+            color: #3A0F14;
             line-height: 1.2;
         }
 
         .card-subvalue {
             font-size: 12px;
-            color: #a0aec0;
+            color: #B5B5B5;
             margin-top: 2px;
         }
 
         .progress-section {
-            background: #f7fafc;
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid #e2e8f0;
+            background: #F4F1EC;
+            border-radius: 18px;
+            padding: 22px;
+            border: 1px solid #E6DDCF;
         }
 
         .progress-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .progress-header div {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .progress-title {
             font-weight: 600;
-            color: #2d3748;
+            color: #3A0F14;
             font-size: 16px;
         }
 
         .progress-stage {
-            background: #4299e1;
+            background: #C2A27E;
             color: white;
-            padding: 2px 8px;
-            border-radius: 16px;
-            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .progress-percentage {
-            font-weight: 600;
-            color: #48bb78;
+            font-weight: 700;
+            color: #3A0F14;
+            font-size: 18px;
         }
 
         .progress-bar {
             width: 100%;
             height: 12px;
-            background: #e2e8f0;
-            border-radius: 6px;
+            background: #E6DDCF;
+            border-radius: 20px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
-            border-radius: 6px;
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #3A0F14, #6A2A2F);
+            border-radius: 20px;
+            transition: width 0.4s ease;
         }
 
         .progress-footer {
             display: flex;
             justify-content: space-between;
-            margin-top: 12px;
-            font-size: 13px;
-            color: #718096;
-        }
-
-        /* Bloque Inferior - Pasos del Proceso */
-        .bottom-block {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .process-step {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-left: 4px solid;
-            transition: transform 0.2s ease;
-        }
-
-        .process-step:hover {
-            transform: translateY(-2px);
-        }
-
-        .step-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .step-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        .step-status {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            margin-top: 14px;
+            font-size: 14px;
+            color: #5f5f5f;
             font-weight: 500;
         }
 
-        .status-pending {
-            background: #fed7d7;
-            color: #c53030;
+        /* ===== BLOQUE DE FASES ===== */
+        .fases-block {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
-        .status-inprogress {
-            background: #feebc8;
-            color: #c05621;
+        .fase-card {
+            background: white;
+            border-radius: 24px;
+            padding: 0;
+            box-shadow: 0 8px 20px -8px rgba(58, 15, 20, 0.1);
+            border: 1px solid rgba(194, 162, 126, 0.3);
+            overflow: hidden;
         }
 
-        .status-completed {
-            background: #c6f6d5;
-            color: #22543d;
-        }
-
-        .step-info {
-            margin-bottom: 16px;
-        }
-
-        .step-info p {
-            color: #718096;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .step-details {
+        .fase-header {
+            background: #F4F1EC;
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
-            color: #4a5568;
-            font-size: 13px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 12px;
+            align-items: center;
+            border-bottom: 2px solid #C2A27E;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        /* Colores para cada paso (dinámicos) */
-        .step-0 { border-left-color: #4299e1; }
-        .step-1 { border-left-color: #9f7aea; }
-        .step-2 { border-left-color: #ed8936; }
-        .step-3 { border-left-color: #48bb78; }
-        .step-4 { border-left-color: #e53e3e; }
-        .step-5 { border-left-color: #667eea; }
-        .step-6 { border-left-color: #38b2ac; }
-        .step-7 { border-left-color: #805ad5; }
+        .fase-header:hover {
+            background: #E6DDCF;
+        }
+
+        .fase-titulo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fase-nombre {
+            font-size: 20px;
+            font-weight: 700;
+            color: #3A0F14;
+        }
+
+        .fase-estado-badge {
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .estado-pendiente {
+            background: #8A8A8A;
+            color: white;
+        }
+
+        .estado-progreso {
+            background: #C2A27E;
+            color: white;
+        }
+
+        .estado-completado {
+            background: #3A0F14;
+            color: white;
+        }
+
+        .fecha-fase {
+            color: #5f5f5f;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .fase-contenido {
+            padding: 20px 24px 24px;
+            background: white;
+        }
+
+        .pasos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .paso-card {
+            background: #FAFAFA;
+            border-radius: 18px;
+            padding: 18px;
+            border: 1px solid #E6DDCF;
+            border-left: 5px solid;
+            transition: all 0.2s;
+        }
+
+        .paso-card:hover {
+            box-shadow: 0 6px 14px rgba(58, 15, 20, 0.05);
+        }
+
+        .paso-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .paso-titulo {
+            font-size: 17px;
+            font-weight: 600;
+            color: #3A0F14;
+        }
+
+        .paso-estado-badge {
+            padding: 3px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: #F4F1EC;
+            color: #3A0F14;
+        }
+
+        .paso-descripcion {
+            color: #4A4A4A;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .paso-fechas {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #8A8A8A;
+            border-top: 1px dashed #E6DDCF;
+            padding-top: 10px;
+        }
+
+        .subpasos-container {
+            margin-top: 14px;
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #E6DDCF;
+        }
+
+        .subpaso-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #F4F1EC;
+            font-size: 13px;
+        }
+
+        .subpaso-item:last-child {
+            border-bottom: none;
+        }
+
+        .subpaso-desc {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #3A0F14;
+        }
+
+        .subpaso-estado {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: #F4F1EC;
+            font-weight: 500;
+        }
+
+        .subpaso-completado {
+            background: #3A0F14;
+            color: white;
+        }
+
+        .subpaso-pendiente {
+            background: #8A8A8A;
+            color: white;
+        }
+
+        .flecha {
+            font-size: 18px;
+            color: #C2A27E;
+            transition: transform 0.3s;
+        }
+
+        .rotado {
+            transform: rotate(90deg);
+        }
 
         /* Mensaje de error */
         .error-message {
             text-align: center;
-            padding: 40px;
+            padding: 50px 30px;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px -10px rgba(58, 15, 20, 0.1);
+            border: 1px solid #E6DDCF;
         }
 
         .error-message h2 {
-            color: #e53e3e;
+            color: #3A0F14;
             margin-bottom: 16px;
+            font-size: 26px;
         }
 
         .error-message p {
-            color: #718096;
+            color: #8A8A8A;
+            font-size: 16px;
         }
 
         /* Responsive */
@@ -297,18 +426,22 @@
         }
 
         @media (max-width: 768px) {
-            .bottom-block {
-                grid-template-columns: 1fr;
-            }
-            
             .service-title {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .fase-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
             }
         }
 
         @media (max-width: 640px) {
             .info-cards {
+                grid-template-columns: 1fr;
+            }
+            .pasos-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -320,30 +453,21 @@
     </div>
 
     <script type="module">
-        // Importar Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Configuración de Firebase (LA MISMA DEL ADMIN)
-const firebaseConfig = {
-  apiKey: "AIzaSyCf2Bpc_146WvEVlOoFsbQfEGMjWZpWBz0",
-  authDomain: "dashboard-legal-eedee.firebaseapp.com",
-  projectId: "dashboard-legal-eedee",
-  storageBucket: "dashboard-legal-eedee.firebasestorage.app",
-  messagingSenderId: "635760171133",
-  appId: "1:635760171133:web:c7bb96dbd5770218483914"
-};
+        const firebaseConfig = {
+            apiKey: "AIzaSyCf2Bpc_146WvEVlOoFsbQfEGMjWZpWBz0",
+            authDomain: "dashboard-legal-eedee.firebaseapp.com",
+            projectId: "dashboard-legal-eedee",
+            storageBucket: "dashboard-legal-eedee.firebasestorage.app",
+            messagingSenderId: "635760171133",
+            appId: "1:635760171133:web:c7bb96dbd5770218483914"
+        };
 
-// Inicializar Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-        // Función para obtener parámetro de la URL
-        function getParameterByName(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-        // Función para formatear fecha
         function formatearFecha(fechaString) {
             if (!fechaString) return 'No definida';
             const fecha = new Date(fechaString);
@@ -354,195 +478,231 @@ const database = getDatabase(app);
             });
         }
 
-        // Función para obtener texto del estado
-        function getEstadoTexto(estado) {
-            const estados = {
-                'pendiente': 'Pendiente',
-                'en_progreso': 'En Progreso',
-                'completado': 'Completado'
-            };
-            return estados[estado] || estado;
-        }
-
-        // Función para obtener clase del estado
         function getEstadoClass(estado) {
             const clases = {
-                'pendiente': 'status-pending',
-                'en_progreso': 'status-inprogress',
-                'completado': 'status-completed'
+                'pendiente': 'estado-pendiente',
+                'en_progreso': 'estado-progreso',
+                'completado': 'estado-completado'
             };
-            return clases[estado] || 'status-pending';
+            return clases[estado] || 'estado-pendiente';
         }
 
-        // Función para obtener icono según estado
-        function getEstadoIcono(estado) {
-            const iconos = {
-                'pendiente': '⏳',
-                'en_progreso': '⚡',
-                'completado': '✅'
+        function getEstadoTexto(estado) {
+            const textos = {
+                'pendiente': 'Pendiente',
+                'en_progreso': 'En progreso',
+                'completado': 'Completado'
             };
-            return iconos[estado] || '⏳';
+            return textos[estado] || estado;
         }
 
-        // Función principal para cargar el dashboard
-        // Función para cargar el dashboard desde Firebase
-function cargarDashboard() {
-    const container = document.getElementById('dashboardContainer');
-    
-    // Obtener ID de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const procesoId = urlParams.get('id');
-    
-    if (!procesoId) {
-        container.innerHTML = `<div class="error-message"><h2>🔍 Proceso no encontrado</h2><p>No se ha especificado un ID de proceso válido.</p></div>`;
-        return;
-    }
-
-    // Escuchar cambios en tiempo real desde Firebase
-    const procesoRef = ref(database, `procesos/${procesoId}`);
-    onValue(procesoRef, (snapshot) => {
-        const proceso = snapshot.val();
-        
-        if (!proceso) {
-            container.innerHTML = `<div class="error-message"><h2>⚠️ Proceso no encontrado</h2><p>El proceso que buscas no existe o ha sido eliminado.</p><p style="margin-top: 10px; font-size: 12px;">ID buscado: ${procesoId}</p></div>`;
-            return;
+        function calcularTotales(fases) {
+            let totalPasos = 0;
+            let completados = 0;
+            
+            fases?.forEach(fase => {
+                fase.pasos?.forEach(paso => {
+                    totalPasos++;
+                    if (paso.estado === 'completado') completados++;
+                    paso.subpasos?.forEach(() => {
+                        totalPasos++;
+                        if (paso.estado === 'completado') completados++;
+                    });
+                });
+            });
+            
+            return { totalPasos, completados };
         }
 
-        // Calcular progreso si no viene calculado
-        const progreso = proceso.progreso || {
-            porcentaje: 0,
-            completados: 0,
-            pendientes: 0,
-            fase: 'Inicio'
-        };
+        function cargarDashboard() {
+            const container = document.getElementById('dashboardContainer');
+            const urlParams = new URLSearchParams(window.location.search);
+            const procesoId = urlParams.get('id');
+            
+            if (!procesoId) {
+                container.innerHTML = `<div class="error-message"><h2>🔍 Proceso no encontrado</h2><p>No se ha especificado un ID de proceso válido.</p></div>`;
+                return;
+            }
 
-        // Generar HTML de los pasos
-        let pasosHtml = '';
-        if (proceso.pasos && proceso.pasos.length > 0) {
-            proceso.pasos.forEach((paso, index) => {
-                const estadoClass = paso.estado === 'completado' ? 'status-completed' :
-                                   paso.estado === 'en_progreso' ? 'status-inprogress' : 'status-pending';
+            const procesoRef = ref(database, `procesos/${procesoId}`);
+            onValue(procesoRef, (snapshot) => {
+                const proceso = snapshot.val();
                 
-                const estadoTexto = paso.estado === 'completado' ? 'Completado' :
-                                   paso.estado === 'en_progreso' ? 'En Progreso' : 'Pendiente';
-                
-                const icono = paso.estado === 'completado' ? '✅' :
-                             paso.estado === 'en_progreso' ? '⚡' : '⏳';
-                
-                pasosHtml += `
-                    <div class="process-step step-${index % 8}">
-                        <div class="step-header">
-                            <span class="step-title">${paso.titulo || 'Paso sin título'}</span>
-                            <span class="step-status ${estadoClass}">${estadoTexto}</span>
+                if (!proceso) {
+                    container.innerHTML = `<div class="error-message"><h2>⚠️ Proceso no encontrado</h2><p>El proceso que buscas no existe o ha sido eliminado.</p><p style="margin-top: 10px;">ID: ${procesoId}</p></div>`;
+                    return;
+                }
+
+                const progreso = proceso.progreso || { porcentaje: 0, completados: 0, pendientes: 0, fase: 'Inicio' };
+                const { totalPasos, completados: totalCompletados } = calcularTotales(proceso.fases);
+
+                // Generar HTML de las fases
+                let fasesHtml = '';
+                if (proceso.fases && proceso.fases.length > 0) {
+                    fasesHtml = '<div class="fases-block">';
+                    proceso.fases.forEach((fase, idx) => {
+                        const estadoClass = getEstadoClass(fase.estado);
+                        const estadoTexto = getEstadoTexto(fase.estado);
+                        
+                        let pasosHtml = '';
+                        if (fase.pasos && fase.pasos.length > 0) {
+                            pasosHtml = '<div class="pasos-grid">';
+                            fase.pasos.forEach(paso => {
+                                const pasoEstadoClass = getEstadoClass(paso.estado);
+                                const pasoEstadoTexto = getEstadoTexto(paso.estado);
+                                const borderColor = paso.estado === 'completado' ? '#3A0F14' : paso.estado === 'en_progreso' ? '#C2A27E' : '#8A8A8A';
+                                
+                                let subpasosHtml = '';
+                                if (paso.subpasos && paso.subpasos.length > 0) {
+                                    subpasosHtml = '<div class="subpasos-container">';
+                                    paso.subpasos.forEach(sub => {
+                                        const subEstadoClass = sub.estado === 'completado' ? 'subpaso-completado' : 'subpaso-pendiente';
+                                        subpasosHtml += `
+                                            <div class="subpaso-item">
+                                                <div class="subpaso-desc">
+                                                    <span>📌</span> ${sub.descripcion}
+                                                </div>
+                                                <span class="subpaso-estado ${subEstadoClass}">${sub.estado}</span>
+                                            </div>
+                                        `;
+                                    });
+                                    subpasosHtml += '</div>';
+                                }
+                                
+                                pasosHtml += `
+                                    <div class="paso-card" style="border-left-color: ${borderColor};">
+                                        <div class="paso-header">
+                                            <span class="paso-titulo">${paso.titulo}</span>
+                                            <span class="paso-estado-badge ${pasoEstadoClass}">${pasoEstadoTexto}</span>
+                                        </div>
+                                        ${paso.descripcion ? `<div class="paso-descripcion">${paso.descripcion}</div>` : ''}
+                                        <div class="paso-fechas">
+                                            <span>📅 Inicio: ${formatearFecha(paso.fechaInicio)}</span>
+                                            ${paso.fechaEstimada ? `<span>🎯 Est: ${formatearFecha(paso.fechaEstimada)}</span>` : ''}
+                                        </div>
+                                        ${subpasosHtml}
+                                    </div>
+                                `;
+                            });
+                            pasosHtml += '</div>';
+                        } else {
+                            pasosHtml = '<p style="color: #8A8A8A; font-style: italic; margin: 20px;">No hay pasos definidos en esta fase</p>';
+                        }
+                        
+                        fasesHtml += `
+                            <div class="fase-card">
+                                <div class="fase-header" onclick="toggleFase('fase-${idx}')">
+                                    <div class="fase-titulo">
+                                        <span class="fase-nombre">${fase.nombre}</span>
+                                        <span class="fase-estado-badge ${estadoClass}">${estadoTexto}</span>
+                                    </div>
+                                    <div class="fecha-fase">
+                                        <span class="flecha" id="flecha-${idx}">▶</span>
+                                    </div>
+                                </div>
+                                <div id="fase-${idx}" class="fase-contenido" style="display: block;">
+                                    ${pasosHtml}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    fasesHtml += '</div>';
+                } else {
+                    fasesHtml = '<p style="text-align: center; color: #8A8A8A; padding: 40px;">No hay fases definidas para este proceso</p>';
+                }
+
+                container.innerHTML = `
+                    <div class="top-block">
+                        <div class="service-header">
+                            <div class="service-title">
+                                <h2>⚖️ ${proceso.servicio.nombre || 'Seguimiento de Caso'}</h2>
+                                <span class="service-badge">${progreso.fase || 'En proceso'}</span>
+                            </div>
                         </div>
-                        <div class="step-info">
-                            <p>${paso.descripcion || 'Sin descripción'}</p>
+
+                        <div class="info-cards">
+                            <div class="card">
+                                <div class="card-icon">📋</div>
+                                <div class="card-content">
+                                    <span class="card-label">Servicio</span>
+                                    <span class="card-value">${proceso.servicio.nombre || 'No especificado'}</span>
+                                    <span class="card-subvalue">Exp. ${proceso.servicio.expediente || 'N/A'}</span>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-icon">👤</div>
+                                <div class="card-content">
+                                    <span class="card-label">Cliente</span>
+                                    <span class="card-value">${proceso.cliente.nombre || 'No especificado'}</span>
+                                    <span class="card-subvalue">"${proceso.cliente.apodo || 'Sin apodo'}"</span>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-icon">🔑</div>
+                                <div class="card-content">
+                                    <span class="card-label">Código</span>
+                                    <span class="card-value">${proceso.servicio.codigo || 'N/A'}</span>
+                                    <span class="card-subvalue">ID: ${proceso.servicio.idInterno || 'N/A'}</span>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-icon">📅</div>
+                                <div class="card-content">
+                                    <span class="card-label">Inicio</span>
+                                    <span class="card-value">${formatearFecha(proceso.servicio.fechaInicio)}</span>
+                                    <span class="card-subvalue">ID: ${procesoId.slice(-6)}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="step-details">
-                            <span>📅 Inicio: ${formatearFecha(paso.fechaInicio)}</span>
-                            <span>${icono} ${paso.estado === 'completado' ? '100%' : paso.estado === 'en_progreso' ? 'En curso' : 'Pendiente'}</span>
+
+                        <div class="progress-section">
+                            <div class="progress-header">
+                                <div>
+                                    <span class="progress-title">Progreso del caso</span>
+                                    <span class="progress-stage">${progreso.fase || 'Inicio'}</span>
+                                </div>
+                                <span class="progress-percentage">${progreso.porcentaje || 0}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${progreso.porcentaje || 0}%;"></div>
+                            </div>
+                            <div class="progress-footer">
+                                <span>✅ ${totalCompletados} completados</span>
+                                <span>⏳ ${totalPasos - totalCompletados} pendientes</span>
+                            </div>
                         </div>
-                        ${paso.fechaEstimada ? `
-                        <div class="step-details" style="border-top: none; padding-top: 4px;">
-                            <span>🎯 Estimado: ${formatearFecha(paso.fechaEstimada)}</span>
-                        </div>
-                        ` : ''}
+                    </div>
+
+                    ${fasesHtml}
+
+                    <div style="text-align: center; color: #B5B5B5; font-size: 12px; margin-top: 20px;">
+                        Proceso #${procesoId.slice(0,8)} • Actualizado periódicamente
                     </div>
                 `;
+
+                // Hacer toggleFase global para los onclick
+                window.toggleFase = function(id) {
+                    const elemento = document.getElementById(id);
+                    const flecha = document.getElementById('flecha-' + id.split('-')[1]);
+                    if (elemento.style.display === 'none') {
+                        elemento.style.display = 'block';
+                        flecha.classList.remove('rotado');
+                    } else {
+                        elemento.style.display = 'none';
+                        flecha.classList.add('rotado');
+                    }
+                };
             });
-        } else {
-            pasosHtml = '<p style="grid-column: 1/-1; text-align: center; color: #718096;">No hay pasos definidos para este proceso</p>';
         }
 
-        // Generar HTML completo del dashboard
-        container.innerHTML = `
-            <div class="top-block">
-                <div class="service-header">
-                    <div class="service-title">
-                        <h2>⚖️ ${proceso.servicio.nombre || 'Seguimiento de Caso'}</h2>
-                        <span class="service-badge">${progreso.fase || 'En Proceso'}</span>
-                    </div>
-                </div>
-
-                <div class="info-cards">
-                    <div class="card">
-                        <div class="card-icon">📋</div>
-                        <div class="card-content">
-                            <span class="card-label">Servicio Contratado</span>
-                            <span class="card-value">${proceso.servicio.nombre || 'No especificado'}</span>
-                            <span class="card-subvalue">Exp. ${proceso.servicio.expediente || 'N/A'}</span>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-icon">👤</div>
-                        <div class="card-content">
-                            <span class="card-label">Cliente</span>
-                            <span class="card-value">${proceso.cliente.nombre || 'No especificado'}</span>
-                            <span class="card-subvalue">"${proceso.cliente.apodo || 'Sin apodo'}"</span>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-icon">🔑</div>
-                        <div class="card-content">
-                            <span class="card-label">Código del Servicio</span>
-                            <span class="card-value">${proceso.servicio.codigo || 'N/A'}</span>
-                            <span class="card-subvalue">ID: ${proceso.servicio.idInterno || 'N/A'}</span>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-icon">📅</div>
-                        <div class="card-content">
-                            <span class="card-label">Fecha de Inicio</span>
-                            <span class="card-value">${formatearFecha(proceso.servicio.fechaInicio)}</span>
-                            <span class="card-subvalue">ID: ${procesoId}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="progress-section">
-                    <div class="progress-header">
-                        <div>
-                            <span class="progress-title">Progreso del Caso</span>
-                            <span class="progress-stage">${progreso.fase || 'Inicio'}</span>
-                        </div>
-                        <span class="progress-percentage">${progreso.porcentaje || 0}% Completado</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${progreso.porcentaje || 0}%;"></div>
-                    </div>
-                    <div class="progress-footer">
-                        <span>⬇️ ${progreso.completados || 0} pasos completados</span>
-                        <span>⬆️ ${progreso.pendientes || 0} pasos pendientes</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bottom-block">
-                ${pasosHtml}
-            </div>
-
-            <div style="text-align: center; color: #a0aec0; font-size: 12px; margin-top: 10px;">
-                Proceso #${procesoId} • Consulte regularmente para ver actualizaciones
-            </div>
-        `;
-    });
-}
-        // Cargar dashboard cuando la página esté lista
         document.addEventListener('DOMContentLoaded', cargarDashboard);
-
-        // Opcional: Recargar cada 30 segundos para ver actualizaciones
-        // setInterval(cargarDashboard, 30000);
-    
-        // Hacer funciones globales
-window.getParameterByName = getParameterByName;
-window.formatearFecha = formatearFecha;
-window.getEstadoTexto = getEstadoTexto;
-window.getEstadoClass = getEstadoClass;
-window.getEstadoIcono = getEstadoIcono;
-window.cargarDashboard = cargarDashboard;
+        
+        window.formatearFecha = formatearFecha;
+        window.getEstadoClass = getEstadoClass;
+        window.getEstadoTexto = getEstadoTexto;
     </script>
 </body>
 </html>

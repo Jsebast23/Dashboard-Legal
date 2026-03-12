@@ -5,331 +5,363 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin - Procesos Legales</title>
     <style>
-        /* Mismo CSS que antes - mantenlo igual */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
+    /* Mismo CSS que antes - mantenlo igual */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
 
-        body {
-            background: #f0f2f5;
-            padding: 20px;
-        }
+    body {
+        background: #f0f2f5;
+        padding: 20px;
+    }
 
-        .admin-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    .admin-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
 
-        header {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    header {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        header h1 {
-            color: #2d3748;
-            font-size: 24px;
-        }
+    header h1 {
+        color: #2d3748;
+        font-size: 24px;
+    }
 
-        .btn {
-            background: #4299e1;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background 0.2s;
-        }
+    .btn {
+        background: #4299e1;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background 0.2s;
+    }
 
-        .btn:hover {
-            background: #3182ce;
-        }
+    .btn:hover {
+        background: #3182ce;
+    }
 
-        .btn-secondary {
-            background: #48bb78;
-        }
+    .btn-secondary {
+        background: #48bb78;
+    }
 
-        .btn-secondary:hover {
-            background: #38a169;
-        }
+    .btn-secondary:hover {
+        background: #38a169;
+    }
 
-        .btn-danger {
-            background: #f56565;
-        }
+    .btn-danger {
+        background: #f56565;
+    }
 
-        .btn-danger:hover {
-            background: #e53e3e;
-        }
+    .btn-danger:hover {
+        background: #e53e3e;
+    }
 
-        .form-section {
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: none;
-        }
+    .form-section {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: none;
+    }
 
-        .form-section.active {
-            display: block;
-        }
+    .form-section.active {
+        display: block;
+    }
 
-        .form-section h2 {
-            color: #2d3748;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
+    .form-section h2 {
+        color: #2d3748;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+    }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
 
-        .form-group label {
-            font-size: 12px;
-            color: #718096;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
+    .form-group label {
+        font-size: 12px;
+        color: #718096;
+        margin-bottom: 4px;
+        font-weight: 500;
+    }
 
-        .form-group input, .form-group select, .form-group textarea {
-            padding: 10px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 14px;
-        }
+    .form-group input, .form-group select, .form-group textarea {
+        padding: 10px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 14px;
+    }
 
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #4299e1;
-        }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        outline: none;
+        border-color: #4299e1;
+    }
 
-        /* Sección de Pasos */
-        .pasos-section {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            border: 2px dashed #cbd5e0;
-        }
+    /* ===== NUEVOS ESTILOS PARA FASES, PASOS Y SUBPASOS ===== */
+    .fases-section {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px dashed #cbd5e0;
+    }
 
-        .pasos-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .fases-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-        .pasos-header h3 {
-            color: #2d3748;
-            font-size: 18px;
-        }
+    .fases-header h3 {
+        color: #2d3748;
+        font-size: 18px;
+    }
 
-        .pasos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 16px;
-            margin-bottom: 20px;
-        }
+    .fases-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
 
-        .paso-card {
-            background: white;
-            border-radius: 12px;
-            padding: 16px;
-            border: 1px solid #e2e8f0;
-            position: relative;
-            transition: all 0.2s;
-        }
+    .fase-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 15px;
+        transition: all 0.2s;
+    }
 
-        .paso-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-color: #4299e1;
-        }
+    .fase-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
-        .paso-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #e2e8f0;
-        }
+    .fase-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #4299e1;
+    }
 
-        .paso-titulo {
-            font-weight: 600;
-            color: #2d3748;
-            font-size: 16px;
-        }
+    .fase-nombre {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2d3748;
+    }
 
-        .paso-estado {
-            padding: 4px 8px;
-            border-radius: 16px;
-            font-size: 11px;
-            font-weight: 500;
-        }
+    .fase-estado {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        background: #ebf8ff;
+        color: #2b6cb0;
+    }
 
-        .estado-pendiente {
-            background: #fed7d7;
-            color: #c53030;
-        }
+    .pasos-container {
+        margin-left: 20px;
+    }
 
-        .estado-progreso {
-            background: #feebc8;
-            color: #c05621;
-        }
+    .paso-card {
+        background: #f7fafc;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 3px solid #4299e1;
+    }
 
-        .estado-completado {
-            background: #c6f6d5;
-            color: #22543d;
-        }
+    .paso-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
 
-        .paso-body {
-            margin-bottom: 12px;
-        }
+    .paso-titulo {
+        font-weight: 600;
+        color: #2d3748;
+        font-size: 15px;
+    }
 
-        .paso-descripcion {
-            color: #718096;
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
+    .paso-actions {
+        display: flex;
+        gap: 8px;
+    }
 
-        .paso-fechas {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #4a5568;
-            margin-bottom: 4px;
-        }
+    .subpasos-container {
+        margin-left: 20px;
+        margin-top: 10px;
+    }
 
-        .paso-actions {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            margin-top: 12px;
-            padding-top: 8px;
-            border-top: 1px solid #e2e8f0;
-        }
+    .subpaso-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        background: white;
+        border-radius: 6px;
+        margin-bottom: 5px;
+        border: 1px solid #e2e8f0;
+        font-size: 13px;
+    }
 
-        .btn-icon {
-            padding: 4px 8px;
-            font-size: 12px;
-            background: #edf2f7;
-            color: #4a5568;
-        }
+    .subpaso-descripcion {
+        color: #4a5568;
+    }
 
-        .btn-icon:hover {
-            background: #e2e8f0;
-        }
+    .subpaso-estado {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 12px;
+    }
 
-        .form-paso {
-            background: #f7fafc;
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 16px;
-            border: 1px solid #e2e8f0;
-        }
+    /* Formularios */
+    .form-fase, .form-paso, .form-subpaso {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        border: 1px solid #e2e8f0;
+    }
 
-        .form-paso.hidden {
-            display: none;
-        }
+    .form-fase.hidden, .form-paso.hidden, .form-subpaso.hidden {
+        display: none;
+    }
 
-        .form-paso-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 12px;
-        }
+    .subpasos-list {
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 10px;
+        background: white;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+    }
 
-        .full-width {
-            grid-column: span 2;
-        }
+    /* Estados */
+    .estado-pendiente {
+        background: #fed7d7;
+        color: #c53030;
+    }
 
-        .procesos-list {
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+    .estado-progreso {
+        background: #feebc8;
+        color: #c05621;
+    }
 
-        .proceso-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
-        }
+    .estado-completado {
+        background: #c6f6d5;
+        color: #22543d;
+    }
 
-        .proceso-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            cursor: pointer;
-        }
+    .btn-icon {
+        padding: 4px 8px;
+        font-size: 12px;
+        background: #edf2f7;
+        color: #4a5568;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 
-        .proceso-header h3 {
-            color: #2d3748;
-            font-size: 16px;
-        }
+    .btn-icon:hover {
+        background: #e2e8f0;
+    }
 
-        .proceso-badge {
-            background: #4299e1;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-        }
+    .procesos-list {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 
-        .proceso-info {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 13px;
-            color: #4a5568;
-        }
+    .proceso-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+    }
 
-        .proceso-pasos {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 2px solid #edf2f7;
-        }
+    .proceso-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        cursor: pointer;
+    }
 
-        .proceso-link {
-            background: #f7fafc;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .proceso-header h3 {
+        color: #2d3748;
+        font-size: 16px;
+    }
 
-        .link-cliente {
-            background: #ebf8ff;
-            color: #2b6cb0;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 11px;
-        }
-    </style>
+    .proceso-badge {
+        background: #4299e1;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+    }
+
+    .proceso-info {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 12px;
+        font-size: 13px;
+        color: #4a5568;
+    }
+
+    .proceso-pasos {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 2px solid #edf2f7;
+    }
+
+    .proceso-link {
+        background: #f7fafc;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .link-cliente {
+        background: #ebf8ff;
+        color: #2b6cb0;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 11px;
+    }
+</style>
 </head>
 <body>
     <div class="admin-container">
@@ -378,27 +410,44 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN DE PASOS DINÁMICOS -->
-            <div class="pasos-section">
-                <div class="pasos-header">
-                    <h3>📋 Pasos del Proceso</h3>
-                    <button class="btn btn-secondary" onclick="mostrarFormularioPaso()">+ Agregar Paso</button>
+            <!-- SECCIÓN DE FASES DEL PROCESO -->
+            <div class="fases-section">
+                <div class="fases-header">
+                    <h3>📋 Fases del Proceso</h3>
+                    <button class="btn btn-secondary" onclick="mostrarFormularioFase()">+ Agregar Fase</button>
                 </div>
 
-                <!-- Grid de pasos -->
-                <div id="pasosContainer" class="pasos-grid">
-                    <!-- Los pasos se insertarán aquí dinámicamente -->
+                <!-- Contenedor de fases -->
+                <div id="fasesContainer" class="fases-grid">
+                    <!-- Las fases se insertarán aquí dinámicamente -->
                 </div>
 
-                <!-- Formulario para crear/editar paso -->
+                <!-- Formulario para crear/editar FASE -->
+                <div id="formFase" class="form-fase hidden">
+                    <h4 id="formFaseTitle">Nueva Fase</h4>
+                    <input type="hidden" id="faseIndex" value="-1">
+                    
+                    <div class="form-group">
+                        <label>Nombre de la Fase</label>
+                        <input type="text" id="faseNombre" placeholder="Ej: Diagnóstico, Plan de Acción, Implementación">
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 15px;">
+                        <button class="btn btn-secondary" onclick="guardarFase()">Guardar Fase</button>
+                        <button class="btn" style="background: #cbd5e0;" onclick="cancelarFormularioFase()">Cancelar</button>
+                    </div>
+                </div>
+
+                <!-- Formulario para crear/editar PASO (dentro de una fase) -->
                 <div id="formPaso" class="form-paso hidden">
-                    <h4 id="formPasoTitle" style="margin-bottom: 12px;">Nuevo Paso</h4>
+                    <h4 id="formPasoTitle">Nuevo Paso</h4>
+                    <input type="hidden" id="faseActualIndex" value="-1">
                     <input type="hidden" id="pasoIndex" value="-1">
                     
                     <div class="form-paso-grid">
                         <div class="form-group full-width">
                             <label>Título del Paso</label>
-                            <input type="text" id="pasoTitulo" placeholder="Ej: Presentación de documentos">
+                            <input type="text" id="pasoTitulo" placeholder="Ej: Envío formulario diagnóstico">
                         </div>
                         
                         <div class="form-group">
@@ -426,9 +475,44 @@
                         </div>
                     </div>
                     
-                    <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                    <!-- Subpasos del paso -->
+                    <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h5 style="color: #2d3748; margin: 0;">📌 Subpasos</h5>
+                            <button class="btn-icon" onclick="mostrarFormularioSubpaso()">+ Agregar Subpaso</button>
+                        </div>
+                        <div id="subpasosContainer" class="subpasos-list">
+                            <!-- Los subpasos se insertarán aquí -->
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 15px;">
                         <button class="btn btn-secondary" onclick="guardarPaso()">Guardar Paso</button>
                         <button class="btn" style="background: #cbd5e0;" onclick="cancelarFormularioPaso()">Cancelar</button>
+                    </div>
+                </div>
+
+                <!-- Formulario para crear/editar SUBPASO -->
+                <div id="formSubpaso" class="form-subpaso hidden">
+                    <h5>Nuevo Subpaso</h5>
+                    <input type="hidden" id="subpasoIndex" value="-1">
+                    
+                    <div class="form-group">
+                        <label>Descripción del Subpaso</label>
+                        <input type="text" id="subpasoDescripcion" placeholder="Ej: Cliente responde formulario">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select id="subpasoEstado">
+                            <option value="pendiente">Pendiente</option>
+                            <option value="completado">Completado</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 15px;">
+                        <button class="btn btn-secondary" onclick="guardarSubpaso()">Guardar Subpaso</button>
+                        <button class="btn" style="background: #cbd5e0;" onclick="cancelarFormularioSubpaso()">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -476,8 +560,332 @@
             }
         });
 
-        // Variable global para almacenar los pasos temporales
-        let pasosTemporales = [];
+        // ===== VARIABLES GLOBALES PARA FASES =====
+        let fasesTemporales = [];
+
+        // ===== FUNCIONES PARA MANEJAR FASES =====
+        function mostrarFormularioFase(index = -1) {
+            document.getElementById('formFase').classList.remove('hidden');
+            document.getElementById('faseIndex').value = index;
+            
+            if (index >= 0 && fasesTemporales[index]) {
+                document.getElementById('formFaseTitle').textContent = 'Editar Fase';
+                document.getElementById('faseNombre').value = fasesTemporales[index].nombre || '';
+            } else {
+                document.getElementById('formFaseTitle').textContent = 'Nueva Fase';
+                document.getElementById('faseNombre').value = '';
+            }
+        }
+
+        function cancelarFormularioFase() {
+            document.getElementById('formFase').classList.add('hidden');
+            document.getElementById('faseIndex').value = '-1';
+        }
+
+        function guardarFase() {
+            const index = parseInt(document.getElementById('faseIndex').value);
+            const nombre = document.getElementById('faseNombre').value;
+            
+            if (!nombre) {
+                alert('El nombre de la fase es obligatorio');
+                return;
+            }
+            
+            const fase = {
+                id: Date.now().toString() + Math.random(),
+                nombre: nombre,
+                estado: 'pendiente',
+                pasos: []
+            };
+            
+            if (index >= 0) {
+                fasesTemporales[index] = fase;
+            } else {
+                fasesTemporales.push(fase);
+            }
+            
+            actualizarGridFases();
+            cancelarFormularioFase();
+        }
+
+        function eliminarFase(index) {
+            if (confirm('¿Eliminar esta fase? Se eliminarán también todos sus pasos.')) {
+                fasesTemporales.splice(index, 1);
+                actualizarGridFases();
+            }
+        }
+
+        // ===== FUNCIONES PARA MANEJAR PASOS (DENTRO DE FASES) =====
+        function mostrarFormularioPaso(faseIndex, pasoIndex = -1) {
+            document.getElementById('formPaso').classList.remove('hidden');
+            document.getElementById('faseActualIndex').value = faseIndex;
+            document.getElementById('pasoIndex').value = pasoIndex;
+            
+            if (pasoIndex >= 0 && fasesTemporales[faseIndex]?.pasos[pasoIndex]) {
+                const paso = fasesTemporales[faseIndex].pasos[pasoIndex];
+                document.getElementById('formPasoTitle').textContent = 'Editar Paso';
+                document.getElementById('pasoTitulo').value = paso.titulo || '';
+                document.getElementById('pasoFechaInicio').value = paso.fechaInicio || '';
+                document.getElementById('pasoFechaEstimada').value = paso.fechaEstimada || '';
+                document.getElementById('pasoEstado').value = paso.estado || 'pendiente';
+                document.getElementById('pasoDescripcion').value = paso.descripcion || '';
+                
+                window.subpasosTemporales = paso.subpasos || [];
+                actualizarListaSubpasos();
+            } else {
+                document.getElementById('formPasoTitle').textContent = 'Nuevo Paso';
+                document.getElementById('pasoTitulo').value = '';
+                document.getElementById('pasoFechaInicio').value = '';
+                document.getElementById('pasoFechaEstimada').value = '';
+                document.getElementById('pasoEstado').value = 'pendiente';
+                document.getElementById('pasoDescripcion').value = '';
+                window.subpasosTemporales = [];
+                actualizarListaSubpasos();
+            }
+        }
+
+        function cancelarFormularioPaso() {
+            document.getElementById('formPaso').classList.add('hidden');
+            document.getElementById('faseActualIndex').value = '-1';
+            document.getElementById('pasoIndex').value = '-1';
+            window.subpasosTemporales = [];
+        }
+
+        function guardarPaso() {
+            const faseIndex = parseInt(document.getElementById('faseActualIndex').value);
+            const pasoIndex = parseInt(document.getElementById('pasoIndex').value);
+            
+            if (faseIndex < 0 || faseIndex >= fasesTemporales.length) {
+                alert('Error: Fase no válida');
+                return;
+            }
+            
+            const paso = {
+                id: Date.now().toString() + Math.random(),
+                titulo: document.getElementById('pasoTitulo').value,
+                fechaInicio: document.getElementById('pasoFechaInicio').value,
+                fechaEstimada: document.getElementById('pasoFechaEstimada').value,
+                estado: document.getElementById('pasoEstado').value,
+                descripcion: document.getElementById('pasoDescripcion').value,
+                subpasos: window.subpasosTemporales || []
+            };
+            
+            if (!paso.titulo) {
+                alert('El título del paso es obligatorio');
+                return;
+            }
+            
+            if (pasoIndex >= 0) {
+                fasesTemporales[faseIndex].pasos[pasoIndex] = paso;
+            } else {
+                if (!fasesTemporales[faseIndex].pasos) {
+                    fasesTemporales[faseIndex].pasos = [];
+                }
+                fasesTemporales[faseIndex].pasos.push(paso);
+            }
+            
+            actualizarEstadoFase(faseIndex);
+            actualizarGridFases();
+            cancelarFormularioPaso();
+        }
+
+        function eliminarPaso(faseIndex, pasoIndex) {
+            if (confirm('¿Eliminar este paso?')) {
+                fasesTemporales[faseIndex].pasos.splice(pasoIndex, 1);
+                actualizarEstadoFase(faseIndex);
+                actualizarGridFases();
+            }
+        }
+
+        // ===== FUNCIONES PARA MANEJAR SUBPASOS =====
+        function mostrarFormularioSubpaso(index = -1) {
+            document.getElementById('formSubpaso').classList.remove('hidden');
+            document.getElementById('subpasoIndex').value = index;
+            
+            if (index >= 0 && window.subpasosTemporales[index]) {
+                document.getElementById('subpasoDescripcion').value = window.subpasosTemporales[index].descripcion || '';
+                document.getElementById('subpasoEstado').value = window.subpasosTemporales[index].estado || 'pendiente';
+            } else {
+                document.getElementById('subpasoDescripcion').value = '';
+                document.getElementById('subpasoEstado').value = 'pendiente';
+            }
+        }
+
+        function cancelarFormularioSubpaso() {
+            document.getElementById('formSubpaso').classList.add('hidden');
+            document.getElementById('subpasoIndex').value = '-1';
+        }
+
+        function guardarSubpaso() {
+            const index = parseInt(document.getElementById('subpasoIndex').value);
+            
+            const subpaso = {
+                id: Date.now().toString() + Math.random(),
+                descripcion: document.getElementById('subpasoDescripcion').value,
+                estado: document.getElementById('subpasoEstado').value
+            };
+            
+            if (!subpaso.descripcion) {
+                alert('La descripción del subpaso es obligatoria');
+                return;
+            }
+            
+            if (!window.subpasosTemporales) {
+                window.subpasosTemporales = [];
+            }
+            
+            if (index >= 0) {
+                window.subpasosTemporales[index] = subpaso;
+            } else {
+                window.subpasosTemporales.push(subpaso);
+            }
+            
+            actualizarListaSubpasos();
+            cancelarFormularioSubpaso();
+        }
+
+        function eliminarSubpaso(index) {
+            if (confirm('¿Eliminar este subpaso?')) {
+                window.subpasosTemporales.splice(index, 1);
+                actualizarListaSubpasos();
+            }
+        }
+
+        function actualizarListaSubpasos() {
+            const container = document.getElementById('subpasosContainer');
+            const subpasos = window.subpasosTemporales || [];
+            
+            if (subpasos.length === 0) {
+                container.innerHTML = '<p style="color: #718096; text-align: center; padding: 10px;">No hay subpasos agregados</p>';
+                return;
+            }
+            
+            let html = '';
+            subpasos.forEach((sub, index) => {
+                const estadoClass = sub.estado === 'completado' ? 'estado-completado' : 'estado-pendiente';
+                html += `
+                    <div class="subpaso-item">
+                        <span class="subpaso-descripcion">${sub.descripcion}</span>
+                        <span class="subpaso-estado ${estadoClass}">${sub.estado}</span>
+                        <div>
+                            <button class="btn-icon" onclick="mostrarFormularioSubpaso(${index})">✏️</button>
+                            <button class="btn-icon" onclick="eliminarSubpaso(${index})">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // ===== FUNCIÓN PARA ACTUALIZAR EL ESTADO DE UNA FASE =====
+        function actualizarEstadoFase(faseIndex) {
+            const fase = fasesTemporales[faseIndex];
+            if (!fase || !fase.pasos || fase.pasos.length === 0) {
+                fase.estado = 'pendiente';
+                return;
+            }
+            
+            let todosCompletados = true;
+            let algunoEnProgreso = false;
+            
+            fase.pasos.forEach(paso => {
+                if (paso.estado !== 'completado') {
+                    todosCompletados = false;
+                }
+                if (paso.estado === 'en_progreso') {
+                    algunoEnProgreso = true;
+                }
+                
+                if (paso.subpasos && paso.subpasos.length > 0) {
+                    paso.subpasos.forEach(sub => {
+                        if (sub.estado !== 'completado') {
+                            todosCompletados = false;
+                        }
+                    });
+                }
+            });
+            
+            if (todosCompletados) {
+                fase.estado = 'completado';
+            } else if (algunoEnProgreso) {
+                fase.estado = 'en_progreso';
+            } else {
+                fase.estado = 'pendiente';
+            }
+        }
+
+        // ===== FUNCIÓN PARA MOSTRAR LAS FASES EN EL GRID =====
+        function actualizarGridFases() {
+            const container = document.getElementById('fasesContainer');
+            
+            if (fasesTemporales.length === 0) {
+                container.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No hay fases agregadas. Haz clic en "Agregar Fase" para comenzar.</p>';
+                return;
+            }
+
+            let html = '';
+            fasesTemporales.forEach((fase, faseIndex) => {
+                const estadoClass = fase.estado === 'completado' ? 'estado-completado' :
+                                   fase.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
+                
+                html += `
+                    <div class="fase-card">
+                        <div class="fase-header">
+                            <span class="fase-nombre">${fase.nombre}</span>
+                            <span class="fase-estado ${estadoClass}">${fase.estado}</span>
+                            <div>
+                                <button class="btn-icon" onclick="mostrarFormularioFase(${faseIndex})">✏️ Editar</button>
+                                <button class="btn-icon" onclick="eliminarFase(${faseIndex})">🗑️ Eliminar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="pasos-container">
+                            ${fase.pasos && fase.pasos.length > 0 ? fase.pasos.map((paso, pasoIndex) => {
+                                const pasoEstadoClass = paso.estado === 'completado' ? 'estado-completado' :
+                                                       paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
+                                return `
+                                    <div class="paso-card">
+                                        <div class="paso-header">
+                                            <span class="paso-titulo">${paso.titulo}</span>
+                                            <span class="paso-estado ${pasoEstadoClass}">${paso.estado}</span>
+                                            <div class="paso-actions">
+                                                <button class="btn-icon" onclick="mostrarFormularioPaso(${faseIndex}, ${pasoIndex})">✏️</button>
+                                                <button class="btn-icon" onclick="eliminarPaso(${faseIndex}, ${pasoIndex})">🗑️</button>
+                                            </div>
+                                        </div>
+                                        ${paso.descripcion ? `<p style="color: #718096; font-size: 13px; margin: 5px 0;">${paso.descripcion}</p>` : ''}
+                                        <div class="paso-fechas">
+                                            <span>📅 Inicio: ${paso.fechaInicio || 'No definida'}</span>
+                                            <span>🎯 Fin: ${paso.fechaEstimada || 'No definida'}</span>
+                                        </div>
+                                        
+                                        ${paso.subpasos && paso.subpasos.length > 0 ? `
+                                            <div class="subpasos-container">
+                                                ${paso.subpasos.map(sub => {
+                                                    const subEstadoClass = sub.estado === 'completado' ? 'estado-completado' : 'estado-pendiente';
+                                                    return `
+                                                        <div class="subpaso-item">
+                                                            <span class="subpaso-descripcion">• ${sub.descripcion}</span>
+                                                            <span class="subpaso-estado ${subEstadoClass}">${sub.estado}</span>
+                                                        </div>
+                                                    `;
+                                                }).join('')}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `;
+                            }).join('') : '<p style="color: #718096; font-style: italic; margin-left: 20px;">No hay pasos en esta fase</p>'}
+                            
+                            <button class="btn-icon" style="margin: 10px 0 0 20px;" onclick="mostrarFormularioPaso(${faseIndex})">
+                                + Agregar Paso
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
 
         // Mostrar/ocultar formulario de proceso
         function mostrarFormulario(procesoParaEditar = null) {
@@ -503,112 +911,14 @@
             document.getElementById('idInterno').value = proceso.servicio.idInterno;
             document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio;
             
-            pasosTemporales = proceso.pasos || [];
-            actualizarGridPasos();
+            fasesTemporales = proceso.fases || [];
+            actualizarGridFases();
         }
 
         function cancelarFormulario() {
             document.getElementById('formProceso').classList.remove('active');
-            pasosTemporales = [];
-            actualizarGridPasos();
-        }
-
-        // Funciones para manejar pasos
-        function mostrarFormularioPaso(index = -1) {
-            document.getElementById('formPaso').classList.remove('hidden');
-            document.getElementById('pasoIndex').value = index;
-            
-            if (index >= 0 && pasosTemporales[index]) {
-                const paso = pasosTemporales[index];
-                document.getElementById('formPasoTitle').textContent = 'Editar Paso';
-                document.getElementById('pasoTitulo').value = paso.titulo || '';
-                document.getElementById('pasoFechaInicio').value = paso.fechaInicio || '';
-                document.getElementById('pasoFechaEstimada').value = paso.fechaEstimada || '';
-                document.getElementById('pasoEstado').value = paso.estado || 'pendiente';
-                document.getElementById('pasoDescripcion').value = paso.descripcion || '';
-            } else {
-                document.getElementById('formPasoTitle').textContent = 'Nuevo Paso';
-                document.getElementById('pasoTitulo').value = '';
-                document.getElementById('pasoFechaInicio').value = '';
-                document.getElementById('pasoFechaEstimada').value = '';
-                document.getElementById('pasoEstado').value = 'pendiente';
-                document.getElementById('pasoDescripcion').value = '';
-            }
-        }
-
-        function cancelarFormularioPaso() {
-            document.getElementById('formPaso').classList.add('hidden');
-            document.getElementById('pasoIndex').value = '-1';
-        }
-
-        function guardarPaso() {
-            const index = parseInt(document.getElementById('pasoIndex').value);
-            
-            const paso = {
-                titulo: document.getElementById('pasoTitulo').value,
-                fechaInicio: document.getElementById('pasoFechaInicio').value,
-                fechaEstimada: document.getElementById('pasoFechaEstimada').value,
-                estado: document.getElementById('pasoEstado').value,
-                descripcion: document.getElementById('pasoDescripcion').value,
-                progreso: document.getElementById('pasoEstado').value === 'completado' ? 100 : 
-                         document.getElementById('pasoEstado').value === 'en_progreso' ? 45 : 0
-            };
-
-            if (index >= 0) {
-                pasosTemporales[index] = paso;
-            } else {
-                pasosTemporales.push(paso);
-            }
-
-            actualizarGridPasos();
-            cancelarFormularioPaso();
-        }
-
-        function eliminarPaso(index) {
-            if (confirm('¿Eliminar este paso?')) {
-                pasosTemporales.splice(index, 1);
-                actualizarGridPasos();
-            }
-        }
-
-        function actualizarGridPasos() {
-            const container = document.getElementById('pasosContainer');
-            
-            if (pasosTemporales.length === 0) {
-                container.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No hay pasos agregados. Haz clic en "Agregar Paso" para comenzar.</p>';
-                return;
-            }
-
-            let html = '';
-            pasosTemporales.forEach((paso, index) => {
-                const estadoClass = paso.estado === 'completado' ? 'estado-completado' :
-                                   paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
-                
-                const estadoTexto = paso.estado === 'completado' ? 'Completado' :
-                                   paso.estado === 'en_progreso' ? 'En Progreso' : 'Pendiente';
-
-                html += `
-                    <div class="paso-card">
-                        <div class="paso-header">
-                            <span class="paso-titulo">${paso.titulo || 'Sin título'}</span>
-                            <span class="paso-estado ${estadoClass}">${estadoTexto}</span>
-                        </div>
-                        <div class="paso-body">
-                            <div class="paso-descripcion">${paso.descripcion || 'Sin descripción'}</div>
-                            <div class="paso-fechas">
-                                <span>📅 Inicio: ${paso.fechaInicio || 'No definida'}</span>
-                                <span>🎯 Est.: ${paso.fechaEstimada || 'No definida'}</span>
-                            </div>
-                        </div>
-                        <div class="paso-actions">
-                            <button class="btn-icon" onclick="mostrarFormularioPaso(${index})">✏️ Editar</button>
-                            <button class="btn-icon" style="color: #e53e3e;" onclick="eliminarPaso(${index})">🗑️ Eliminar</button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
+            fasesTemporales = [];
+            actualizarGridFases();
         }
 
         // Guardar proceso en Firebase
@@ -628,19 +938,39 @@
                     apodo: document.getElementById('clienteApodo').value,
                     email: document.getElementById('clienteEmail').value
                 },
-                pasos: pasosTemporales,
+                fases: fasesTemporales,
                 fechaCreacion: new Date().toLocaleDateString()
             };
+            
             console.log('Email a guardar:', proceso.cliente.email);
+            console.log('Fases guardadas:', proceso.fases);
 
-            // Calcular progreso basado en pasos
-            if (proceso.pasos.length > 0) {
-                const completados = proceso.pasos.filter(p => p.estado === 'completado').length;
+            // Calcular progreso basado en las fases
+            if (proceso.fases.length > 0) {
+                let totalPasos = 0;
+                let completados = 0;
+                
+                proceso.fases.forEach(fase => {
+                    if (fase.pasos) {
+                        fase.pasos.forEach(paso => {
+                            totalPasos++;
+                            if (paso.estado === 'completado') completados++;
+                            
+                            if (paso.subpasos && paso.subpasos.length > 0) {
+                                paso.subpasos.forEach(sub => {
+                                    totalPasos++;
+                                    if (sub.estado === 'completado') completados++;
+                                });
+                            }
+                        });
+                    }
+                });
+                
                 proceso.progreso = {
-                    porcentaje: Math.round((completados / proceso.pasos.length) * 100),
+                    porcentaje: totalPasos > 0 ? Math.round((completados / totalPasos) * 100) : 0,
                     completados: completados,
-                    pendientes: proceso.pasos.length - completados,
-                    fase: obtenerFaseActual(proceso.pasos)
+                    pendientes: totalPasos - completados,
+                    fase: 'En progreso'
                 };
             } else {
                 proceso.progreso = {
@@ -657,7 +987,6 @@
                 set(ref(database, `procesos/${procesoId}`), proceso).then(() => {
                     alert('Proceso actualizado con éxito!');
                     cancelarFormulario();
-                    proceso.id = procesoId;
                     enviarEmailCliente(proceso);
                 });
             } else {
@@ -665,7 +994,6 @@
                 set(nuevoProcesoRef, proceso).then(() => {
                     alert('Proceso creado con éxito!');
                     cancelarFormulario();
-                    proceso.id = nuevoProcesoRef.key;
                     enviarEmailCliente(proceso);
                 });
             }
@@ -697,11 +1025,11 @@
     <div style="max-width: 560px; margin: 30px auto; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px -10px rgba(0,20,30,0.15);">
         
         <!-- Cabecera CONLECOL con identidad visual -->
-<div style="background: #3A0F14; padding: 40px 24px; text-align: center; border-bottom: 3px solid #C2A27E;">
-    <h1 style="font-family: 'League Spartan', 'Segoe UI', Arial, sans-serif; color: #FFFFFF; margin: 0; font-size: 42px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">CONLECOL</h1>
-    <p style="font-family: 'League Spartan', 'Segoe UI', Arial, sans-serif; color: #C2A27E; margin: 12px 0 0 0; font-size: 18px; font-weight: 400; letter-spacing: 1px;">consultoría legal preventiva</p>
-    <div style="width: 80px; height: 2px; background: #C2A27E; margin: 20px auto 0 auto;"></div>
-</div>
+        <div style="background: #3A0F14; padding: 40px 24px; text-align: center; border-bottom: 3px solid #C2A27E;">
+            <h1 style="font-family: 'League Spartan', 'Segoe UI', Arial, sans-serif; color: #FFFFFF; margin: 0; font-size: 42px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">CONLECOL</h1>
+            <p style="font-family: 'League Spartan', 'Segoe UI', Arial, sans-serif; color: #C2A27E; margin: 12px 0 0 0; font-size: 18px; font-weight: 400; letter-spacing: 1px;">consultoría legal preventiva</p>
+            <div style="width: 80px; height: 2px; background: #C2A27E; margin: 20px auto 0 auto;"></div>
+        </div>
         
         <!-- Contenido principal -->
         <div style="padding: 40px 32px;">
@@ -743,36 +1071,11 @@
                 </div>
                 
                 <p style="color: #6b7a8a; font-size: 15px; margin: 20px 0 0 0; padding-top: 16px; border-top: 1px dashed #d9cec0;">
-                    ✅ <strong>${proceso.progreso.completados}</strong> de <strong>${proceso.pasos.length}</strong> pasos completados 
+                    ✅ <strong>${proceso.progreso.completados}</strong> de <strong>${proceso.fases.reduce((total, fase) => total + (fase.pasos?.length || 0), 0)}</strong> pasos completados 
                     — vas por buen camino, y estamos aquí para acompañarte.
                 </p>
             </div>
             
-            <!-- Lista de últimos pasos con diseño amigable -->
-            ${proceso.pasos.length > 0 ? `
-            <div style="margin-bottom: 30px;">
-                <h4 style="color: #003153; margin: 0 0 16px 0; font-size: 16px; font-weight: 500;">📋 Lo último en tu caso:</h4>
-                <div style="display: grid; gap: 10px;">
-                    ${proceso.pasos.slice(0, 3).map(paso => {
-                        const estadoEmoji = paso.estado === 'completado' ? '✅' : paso.estado === 'en_progreso' ? '⚡' : '⏳';
-                        const estadoTexto = paso.estado === 'completado' ? 'listo' : paso.estado === 'en_progreso' ? 'en curso' : 'pendiente';
-                        return `
-                            <div style="background: #faf7f2; border-radius: 14px; padding: 14px 18px; border: 1px solid #ede5da;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-weight: 500; color: #2d3e50;">${paso.titulo}</span>
-                                    <span style="color: #8b6f4c; font-size: 14px; background: white; padding: 3px 12px; border-radius: 30px;">
-                                        ${estadoEmoji} ${estadoTexto}
-                                    </span>
-                                </div>
-                                ${paso.descripcion ? `<p style="color: #6b7a8a; font-size: 13px; margin: 8px 0 0 0;">${paso.descripcion}</p>` : ''}
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-                ${proceso.pasos.length > 3 ? '<p style="color: #8b9aab; font-size: 13px; margin-top: 12px; text-align: right;">+ ' + (proceso.pasos.length - 3) + ' paso(s) más en el panel</p>' : ''}
-            </div>
-            ` : ''}
-
             <!-- Botón suave pero visible, con mensaje claro -->
             <div style="text-align: center; margin: 35px 0 20px;">
                 <a href="https://dashboard.conlecol.com/cliente/?id=${proceso.id}" 
@@ -806,7 +1109,7 @@
             <div style="border-top: 1px solid #e0d6ca; padding-top: 24px; margin-top: 24px;">
                 <p style="color: #6b7a8a; font-size: 14px; line-height: 1.6; margin: 0; text-align: center;">
                     📬 ¿Tienes dudas? Respondé este correo o escribinos a<br>
-                    <a href="mailto:contacto@conlecol.com" style="color: #003153; text-decoration: none; font-weight: 500;">consultas@conlecol.com</a><br>
+                    <a href="mailto:consultas@conlecol.com" style="color: #003153; text-decoration: none; font-weight: 500;">consultas@conlecol.com</a><br>
                     <span style="color: #9aabb8; font-size: 12px;">Respondemos siempre en menos de 24 horas.</span>
                 </p>
             </div>
@@ -839,12 +1142,6 @@
             }
         }
 
-        function obtenerFaseActual(pasos) {
-            if (pasos.length === 0) return 'Sin iniciar';
-            const pasoActual = pasos.find(p => p.estado !== 'completado');
-            return pasoActual ? pasoActual.titulo : 'Completado';
-        }
-
         function editarProceso(id) {
             mostrarFormulario();
             const procesoRef = ref(database, `procesos/${id}`);
@@ -860,8 +1157,8 @@
                     document.getElementById('idInterno').value = proceso.servicio.idInterno || '';
                     document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio || '';
                     
-                    pasosTemporales = proceso.pasos || [];
-                    actualizarGridPasos();
+                    fasesTemporales = proceso.fases || [];
+                    actualizarGridFases();
                     
                     document.getElementById('procesoId').value = id;
                     document.getElementById('formTitulo').textContent = 'Editar Proceso';
@@ -878,8 +1175,8 @@
             document.getElementById('codigoServicio').value = 'DIV-2403-156';
             document.getElementById('idInterno').value = 'CL-7890';
             document.getElementById('fechaInicio').value = '2024-03-15';
-            pasosTemporales = [];
-            actualizarGridPasos();
+            fasesTemporales = [];
+            actualizarGridFases();
         }
 
         // Cargar procesos desde Firebase
@@ -921,20 +1218,27 @@
                         </div>
                         
                         <div class="proceso-pasos" id="pasos-${proceso.id}" style="display: none;">
-                            <h4 style="margin-bottom: 10px; color: #4a5568;">Pasos del proceso:</h4>
-                            ${proceso.pasos ? proceso.pasos.map(paso => {
-                                const estadoClass = paso.estado === 'completado' ? 'estado-completado' :
-                                                   paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
+                            <h4 style="margin-bottom: 10px; color: #4a5568;">Fases del proceso:</h4>
+                            ${proceso.fases ? proceso.fases.map(fase => {
                                 return `
-                                    <div style="border-left: 3px solid #4299e1; padding-left: 12px; margin-bottom: 8px;">
-                                        <div style="display: flex; justify-content: space-between;">
-                                            <strong>${paso.titulo}</strong>
-                                            <span class="paso-estado ${estadoClass}" style="font-size: 10px;">${paso.estado}</span>
-                                        </div>
-                                        <div style="font-size: 12px; color: #718096;">${paso.descripcion}</div>
+                                    <div style="margin-bottom: 15px;">
+                                        <strong style="color: #2d3748;">${fase.nombre}</strong> (${fase.estado})
+                                        ${fase.pasos ? fase.pasos.map(paso => `
+                                            <div style="margin-left: 15px; border-left: 2px solid #4299e1; padding-left: 10px;">
+                                                <div>📌 ${paso.titulo} - ${paso.estado}</div>
+                                                ${paso.descripcion ? `<div style="font-size: 12px; color: #718096;">${paso.descripcion}</div>` : ''}
+                                                ${paso.subpasos && paso.subpasos.length > 0 ? `
+                                                    <div style="margin-left: 15px;">
+                                                        ${paso.subpasos.map(sub => `
+                                                            <div>• ${sub.descripcion} (${sub.estado})</div>
+                                                        `).join('')}
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        `).join('') : '<p style="color: #718096;">No hay pasos</p>'}
                                     </div>
                                 `;
-                            }).join('') : '<p>No hay pasos definidos</p>'}
+                            }).join('') : '<p>No hay fases definidas</p>'}
                         </div>
                         
                         <div class="proceso-link">
@@ -984,10 +1288,18 @@
 
         // Hacer funciones globales para los onclick
         window.mostrarFormulario = mostrarFormulario;
+        window.mostrarFormularioFase = mostrarFormularioFase;
+        window.cancelarFormularioFase = cancelarFormularioFase;
+        window.guardarFase = guardarFase;
+        window.eliminarFase = eliminarFase;
         window.mostrarFormularioPaso = mostrarFormularioPaso;
-        window.guardarPaso = guardarPaso;
         window.cancelarFormularioPaso = cancelarFormularioPaso;
+        window.guardarPaso = guardarPaso;
         window.eliminarPaso = eliminarPaso;
+        window.mostrarFormularioSubpaso = mostrarFormularioSubpaso;
+        window.cancelarFormularioSubpaso = cancelarFormularioSubpaso;
+        window.guardarSubpaso = guardarSubpaso;
+        window.eliminarSubpaso = eliminarSubpaso;
         window.guardarProceso = guardarProceso;
         window.cancelarFormulario = cancelarFormulario;
         window.editarProceso = editarProceso;
