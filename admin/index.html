@@ -1,4 +1,3 @@
-<!-- Solo copia esto y reemplaza TODO tu admin/index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -450,32 +449,33 @@
     </div>
 
     <script type="module">
+        // Importar Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Importar Firebase (DEBE IR AL PRINCIPIO)
-// Importar Firebase usando la forma compatible con HTML
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCf2Bpc_146WvEVlOoFsbQfEGMjWZpWBz0",
+            authDomain: "dashboard-legal-eedee.firebaseapp.com",
+            projectId: "dashboard-legal-eedee",
+            storageBucket: "dashboard-legal-eedee.firebasestorage.app",
+            messagingSenderId: "635760171133",
+            appId: "1:635760171133:web:c7bb96dbd5770218483914"
+        };
 
-    // Configuración de Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyCf2Bpc_146WvEVlOoFsbQfEGMjWZpWBz0",
-        authDomain: "dashboard-legal-eedee.firebaseapp.com",
-        projectId: "dashboard-legal-eedee",
-        storageBucket: "dashboard-legal-eedee.firebasestorage.app",
-        messagingSenderId: "635760171133",
-        appId: "1:635760171133:web:c7bb96dbd5770218483914"
-    };
-// Inicializar Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-const auth = getAuth(app);
-//verificar autenticación
-onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        window.location.href = '/admin/login.html';
-    }
-});
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth(app);
+
+        // Verificar autenticación
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = '/admin/login.html';
+            }
+        });
+
         // Variable global para almacenar los pasos temporales
         let pasosTemporales = [];
 
@@ -485,7 +485,6 @@ onAuthStateChanged(auth, (user) => {
             if (procesoParaEditar) {
                 document.getElementById('formTitulo').textContent = 'Editar Proceso';
                 document.getElementById('procesoId').value = procesoParaEditar.id;
-                // Cargar datos del proceso...
                 cargarDatosProceso(procesoParaEditar);
             } else {
                 document.getElementById('formTitulo').textContent = 'Crear Nuevo Proceso';
@@ -520,7 +519,6 @@ onAuthStateChanged(auth, (user) => {
             document.getElementById('pasoIndex').value = index;
             
             if (index >= 0 && pasosTemporales[index]) {
-                // Editar paso existente
                 const paso = pasosTemporales[index];
                 document.getElementById('formPasoTitle').textContent = 'Editar Paso';
                 document.getElementById('pasoTitulo').value = paso.titulo || '';
@@ -529,7 +527,6 @@ onAuthStateChanged(auth, (user) => {
                 document.getElementById('pasoEstado').value = paso.estado || 'pendiente';
                 document.getElementById('pasoDescripcion').value = paso.descripcion || '';
             } else {
-                // Nuevo paso
                 document.getElementById('formPasoTitle').textContent = 'Nuevo Paso';
                 document.getElementById('pasoTitulo').value = '';
                 document.getElementById('pasoFechaInicio').value = '';
@@ -558,17 +555,12 @@ onAuthStateChanged(auth, (user) => {
             };
 
             if (index >= 0) {
-                // Editar existente
                 pasosTemporales[index] = paso;
             } else {
-                // Agregar nuevo
                 pasosTemporales.push(paso);
             }
 
-            // Actualizar grid
             actualizarGridPasos();
-            
-            // Ocultar formulario
             cancelarFormularioPaso();
         }
 
@@ -619,67 +611,79 @@ onAuthStateChanged(auth, (user) => {
             container.innerHTML = html;
         }
 
-        // Guardar proceso completo
         // Guardar proceso en Firebase
-function guardarProceso() {
-    const procesoId = document.getElementById('procesoId').value;
-    
-    const proceso = {
-        servicio: {
-            nombre: document.getElementById('servicio').value,
-            expediente: document.getElementById('expediente').value,
-            fechaInicio: document.getElementById('fechaInicio').value,
-            codigo: document.getElementById('codigoServicio').value,
-            idInterno: document.getElementById('idInterno').value
-        },
-        cliente: {
-            nombre: document.getElementById('clienteNombre').value,
-            apodo: document.getElementById('clienteApodo').value,
-            email: document.getElementById('clienteEmail').value
-        },
-        pasos: pasosTemporales,
-        fechaCreacion: new Date().toLocaleDateString()
-    };
-    console.log('Email a guardar:', proceso.cliente.email);
+        function guardarProceso() {
+            const procesoId = document.getElementById('procesoId').value;
+            
+            const proceso = {
+                servicio: {
+                    nombre: document.getElementById('servicio').value,
+                    expediente: document.getElementById('expediente').value,
+                    fechaInicio: document.getElementById('fechaInicio').value,
+                    codigo: document.getElementById('codigoServicio').value,
+                    idInterno: document.getElementById('idInterno').value
+                },
+                cliente: {
+                    nombre: document.getElementById('clienteNombre').value,
+                    apodo: document.getElementById('clienteApodo').value,
+                    email: document.getElementById('clienteEmail').value
+                },
+                pasos: pasosTemporales,
+                fechaCreacion: new Date().toLocaleDateString()
+            };
+            console.log('Email a guardar:', proceso.cliente.email);
 
-    // Calcular progreso basado en pasos
-    if (proceso.pasos.length > 0) {
-        const completados = proceso.pasos.filter(p => p.estado === 'completado').length;
-        proceso.progreso = {
-            porcentaje: Math.round((completados / proceso.pasos.length) * 100),
-            completados: completados,
-            pendientes: proceso.pasos.length - completados,
-            fase: obtenerFaseActual(proceso.pasos)
-        };
-    } else {
-        proceso.progreso = {
-            porcentaje: 0,
-            completados: 0,
-            pendientes: 0,
-            fase: 'Sin iniciar'
-        };
-    }
+            // Calcular progreso basado en pasos
+            if (proceso.pasos.length > 0) {
+                const completados = proceso.pasos.filter(p => p.estado === 'completado').length;
+                proceso.progreso = {
+                    porcentaje: Math.round((completados / proceso.pasos.length) * 100),
+                    completados: completados,
+                    pendientes: proceso.pasos.length - completados,
+                    fase: obtenerFaseActual(proceso.pasos)
+                };
+            } else {
+                proceso.progreso = {
+                    porcentaje: 0,
+                    completados: 0,
+                    pendientes: 0,
+                    fase: 'Sin iniciar'
+                };
+            }
 
-    const procesosRef = ref(database, 'procesos');
-    
-    if (procesoId) {
-        // Editar existente
-        set(ref(database, `procesos/${procesoId}`), proceso).then(() => {
-            alert('Proceso actualizado con éxito!');
-            cancelarFormulario();
-            enviarEmailCliente(proceso);
-        });
-    } else {
-        // Nuevo proceso
-        const nuevoProcesoRef = push(procesosRef);
-        set(nuevoProcesoRef, proceso).then(() => {
-            alert('Proceso creado con éxito!');
-            cancelarFormulario();
-            enviarEmailCliente(proceso);
-        });
-    }
-}
-// Función para enviar email al cliente`<!DOCTYPE html>
+            const procesosRef = ref(database, 'procesos');
+            
+            if (procesoId) {
+                set(ref(database, `procesos/${procesoId}`), proceso).then(() => {
+                    alert('Proceso actualizado con éxito!');
+                    cancelarFormulario();
+                    enviarEmailCliente(proceso);
+                });
+            } else {
+                const nuevoProcesoRef = push(procesosRef);
+                set(nuevoProcesoRef, proceso).then(() => {
+                    alert('Proceso creado con éxito!');
+                    cancelarFormulario();
+                    enviarEmailCliente(proceso);
+                });
+            }
+        }
+
+        // Función para enviar email al cliente
+        async function enviarEmailCliente(proceso) {
+            if (!proceso.cliente.email) {
+                console.log('Cliente sin email, no se envía notificación');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        to: proceso.cliente.email,
+                        subject: `⚖️ Tu caso legal ha sido actualizado - ${proceso.servicio.nombre}`,
+                        html: `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -818,67 +822,56 @@ function guardarProceso() {
     </div>
 </body>
 </html>`
+                    })
+                });
 
-        if (response.ok) {
-            console.log('✅ Email enviado correctamente a', proceso.cliente.email);
-        } else {
-            const error = await response.json();
-            console.error('❌ Error al enviar email:', error);
+                if (response.ok) {
+                    console.log('✅ Email enviado correctamente a', proceso.cliente.email);
+                } else {
+                    const error = await response.json();
+                    console.error('❌ Error al enviar email:', error);
+                }
+            } catch (error) {
+                console.error('❌ Error en la petición:', error);
+            }
         }
-    } catch (error) {
-        console.error('❌ Error en la petición:', error);
-    }
-}
 
         function obtenerFaseActual(pasos) {
             if (pasos.length === 0) return 'Sin iniciar';
-            
-            // Buscar el primer paso no completado
             const pasoActual = pasos.find(p => p.estado !== 'completado');
             return pasoActual ? pasoActual.titulo : 'Completado';
         }
 
-        //Se actualizó para colocar firebase
-        // Editar proceso
-// Editar proceso
-// Editar proceso
-function editarProceso(id) {
-    // Mostrar el formulario
-    mostrarFormulario();
-    
-    // Buscar el proceso en Firebase
-    const procesoRef = ref(database, `procesos/${id}`);
-    onValue(procesoRef, (snapshot) => {
-        const proceso = snapshot.val();
-        
-        if (proceso) {
-            // Llenar el formulario
-            document.getElementById('servicio').value = proceso.servicio.nombre || '';
-            document.getElementById('expediente').value = proceso.servicio.expediente || '';
-            document.getElementById('clienteNombre').value = proceso.cliente.nombre || '';
-            document.getElementById('clienteApodo').value = proceso.cliente.apodo || '';
-            document.getElementById('clienteEmail').value = proceso.cliente.email || '';
-            document.getElementById('codigoServicio').value = proceso.servicio.codigo || '';
-            document.getElementById('idInterno').value = proceso.servicio.idInterno || '';
-            document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio || '';
-            
-            pasosTemporales = proceso.pasos || [];
-            actualizarGridPasos();
-            
-            // 👇 ESTO ES LO IMPORTANTE - guardar el ID
-            document.getElementById('procesoId').value = id;
-            
-            document.getElementById('formTitulo').textContent = 'Editar Proceso';
+        function editarProceso(id) {
+            mostrarFormulario();
+            const procesoRef = ref(database, `procesos/${id}`);
+            onValue(procesoRef, (snapshot) => {
+                const proceso = snapshot.val();
+                if (proceso) {
+                    document.getElementById('servicio').value = proceso.servicio.nombre || '';
+                    document.getElementById('expediente').value = proceso.servicio.expediente || '';
+                    document.getElementById('clienteNombre').value = proceso.cliente.nombre || '';
+                    document.getElementById('clienteApodo').value = proceso.cliente.apodo || '';
+                    document.getElementById('clienteEmail').value = proceso.cliente.email || '';
+                    document.getElementById('codigoServicio').value = proceso.servicio.codigo || '';
+                    document.getElementById('idInterno').value = proceso.servicio.idInterno || '';
+                    document.getElementById('fechaInicio').value = proceso.servicio.fechaInicio || '';
+                    
+                    pasosTemporales = proceso.pasos || [];
+                    actualizarGridPasos();
+                    
+                    document.getElementById('procesoId').value = id;
+                    document.getElementById('formTitulo').textContent = 'Editar Proceso';
+                }
+            }, { onlyOnce: true });
         }
-    }, { onlyOnce: true });
-}
 
         function limpiarFormularioProceso() {
             document.getElementById('servicio').value = 'Divorcio Contencioso';
             document.getElementById('expediente').value = '#1234-2024';
             document.getElementById('clienteNombre').value = 'María González';
             document.getElementById('clienteApodo').value = 'Mari';
-            document.getElementById('clienteEmail').value = '';  
+            document.getElementById('clienteEmail').value = 'example@email.com';  
             document.getElementById('codigoServicio').value = 'DIV-2403-156';
             document.getElementById('idInterno').value = 'CL-7890';
             document.getElementById('fechaInicio').value = '2024-03-15';
@@ -886,91 +879,87 @@ function editarProceso(id) {
             actualizarGridPasos();
         }
 
-        
-       // Cargar procesos desde Firebase
-function cargarProcesos() {
-    const procesosRef = ref(database, 'procesos');
-    onValue(procesosRef, (snapshot) => {
-        const procesos = [];
-        snapshot.forEach((childSnapshot) => {
-            const proceso = childSnapshot.val();
-            proceso.id = childSnapshot.key;
-            procesos.push(proceso);
-        });
-        
-        actualizarListaProcesos(procesos);
-    });
-}
+        // Cargar procesos desde Firebase
+        function cargarProcesos() {
+            const procesosRef = ref(database, 'procesos');
+            onValue(procesosRef, (snapshot) => {
+                const procesos = [];
+                snapshot.forEach((childSnapshot) => {
+                    const proceso = childSnapshot.val();
+                    proceso.id = childSnapshot.key;
+                    procesos.push(proceso);
+                });
+                actualizarListaProcesos(procesos);
+            });
+        }
 
-// Función para mostrar los procesos en el HTML
-function actualizarListaProcesos(procesos) {
-    const contenedor = document.getElementById('listaProcesos');
-    
-    if (procesos.length === 0) {
-        contenedor.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No hay procesos creados aún</p>';
-        return;
-    }
+        // Función para mostrar los procesos en el HTML
+        function actualizarListaProcesos(procesos) {
+            const contenedor = document.getElementById('listaProcesos');
+            if (procesos.length === 0) {
+                contenedor.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No hay procesos creados aún</p>';
+                return;
+            }
+            let html = '';
+            procesos.forEach(proceso => {
+                const progreso = proceso.progreso || { porcentaje: 0, completados: 0, pendientes: 0 };
+                html += `
+                    <div class="proceso-card">
+                        <div class="proceso-header" onclick="toggleProceso('${proceso.id}')">
+                            <h3>${proceso.servicio.nombre} - ${proceso.cliente.nombre}</h3>
+                            <span class="proceso-badge">${progreso.porcentaje}%</span>
+                        </div>
+                        
+                        <div class="proceso-info">
+                            <span>📋 ${proceso.servicio.codigo}</span>
+                            <span>📅 ${proceso.servicio.fechaInicio}</span>
+                            <span>✅ ${progreso.completados} completados</span>
+                            <span>⏳ ${progreso.pendientes} pendientes</span>
+                        </div>
+                        
+                        <div class="proceso-pasos" id="pasos-${proceso.id}" style="display: none;">
+                            <h4 style="margin-bottom: 10px; color: #4a5568;">Pasos del proceso:</h4>
+                            ${proceso.pasos ? proceso.pasos.map(paso => {
+                                const estadoClass = paso.estado === 'completado' ? 'estado-completado' :
+                                                   paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
+                                return `
+                                    <div style="border-left: 3px solid #4299e1; padding-left: 12px; margin-bottom: 8px;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <strong>${paso.titulo}</strong>
+                                            <span class="paso-estado ${estadoClass}" style="font-size: 10px;">${paso.estado}</span>
+                                        </div>
+                                        <div style="font-size: 12px; color: #718096;">${paso.descripcion}</div>
+                                    </div>
+                                `;
+                            }).join('') : '<p>No hay pasos definidos</p>'}
+                        </div>
+                        
+                        <div class="proceso-link">
+                            <span>🔗 Link cliente:</span>
+                            <span class="link-cliente" onclick="copiarLink('${proceso.id}')">
+                                https://dashboard.conlecol.com/cliente/?id=${proceso.id}
+                            </span>
+                        </div>
+                        
+                        <div style="display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end;">
+                            <button class="btn btn-small" onclick="editarProceso('${proceso.id}')">✏️ Editar</button>
+                            <button class="btn btn-small" style="background: #f56565;" onclick="eliminarProceso('${proceso.id}')">🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                `;
+            });
+            contenedor.innerHTML = html;
+        }
 
-    let html = '';
-    procesos.forEach(proceso => {
-        const progreso = proceso.progreso || { porcentaje: 0, completados: 0, pendientes: 0 };
-        
-        html += `
-            <div class="proceso-card">
-                <div class="proceso-header" onclick="toggleProceso('${proceso.id}')">
-                    <h3>${proceso.servicio.nombre} - ${proceso.cliente.nombre}</h3>
-                    <span class="proceso-badge">${progreso.porcentaje}%</span>
-                </div>
-                
-                <div class="proceso-info">
-                    <span>📋 ${proceso.servicio.codigo}</span>
-                    <span>📅 ${proceso.servicio.fechaInicio}</span>
-                    <span>✅ ${progreso.completados} completados</span>
-                    <span>⏳ ${progreso.pendientes} pendientes</span>
-                </div>
-                
-                <div class="proceso-pasos" id="pasos-${proceso.id}" style="display: none;">
-                    <h4 style="margin-bottom: 10px; color: #4a5568;">Pasos del proceso:</h4>
-                    ${proceso.pasos ? proceso.pasos.map(paso => {
-                        const estadoClass = paso.estado === 'completado' ? 'estado-completado' :
-                                           paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
-                        return `
-                            <div style="border-left: 3px solid #4299e1; padding-left: 12px; margin-bottom: 8px;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <strong>${paso.titulo}</strong>
-                                    <span class="paso-estado ${estadoClass}" style="font-size: 10px;">${paso.estado}</span>
-                                </div>
-                                <div style="font-size: 12px; color: #718096;">${paso.descripcion}</div>
-                            </div>
-                        `;
-                    }).join('') : '<p>No hay pasos definidos</p>'}
-                </div>
-                
-                <div class="proceso-link">
-                    <span>🔗 Link cliente:</span>
-                    <span class="link-cliente" onclick="copiarLink('${proceso.id}')">
-                        https://dashboard.conlecol.com/cliente/?id=${proceso.id}
-                    </span>
-                </div>
-                
-                <div style="display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end;">
-                    <button class="btn btn-small" onclick="editarProceso('${proceso.id}')">✏️ Editar</button>
-                    <button class="btn btn-small" style="background: #f56565;" onclick="eliminarProceso('${proceso.id}')">🗑️ Eliminar</button>
-                </div>
-            </div>
-        `;
-    });
-    
-    contenedor.innerHTML = html;
-}
-// Eliminar proceso de Firebase
-function eliminarProceso(id) {
-    if (confirm('¿Estás seguro de eliminar este proceso?')) {
-        remove(ref(database, `procesos/${id}`)).then(() => {
-            alert('Proceso eliminado');
-        });
-    }
-}
+        // Eliminar proceso de Firebase
+        function eliminarProceso(id) {
+            if (confirm('¿Estás seguro de eliminar este proceso?')) {
+                remove(ref(database, `procesos/${id}`)).then(() => {
+                    alert('Proceso eliminado');
+                });
+            }
+        }
+
         function toggleProceso(id) {
             const elemento = document.getElementById(`pasos-${id}`);
             if (elemento) {
@@ -979,32 +968,29 @@ function eliminarProceso(id) {
         }
 
         function copiarLink(procesoId) {
-    const url = `https://dashboard.conlecol.com/cliente/?id=${procesoId}`;
-    navigator.clipboard.writeText(url).then(() => {
-        alert('✅ Link copiado al portapapeles!');
-    }).catch(() => {
-        // Fallback para navegadores antiguos
-        prompt('Copia este link manualmente:', url);
-    });
-}
-
-    
+            const url = `https://dashboard.conlecol.com/cliente/?id=${procesoId}`;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('✅ Link copiado al portapapeles!');
+            }).catch(() => {
+                prompt('Copia este link manualmente:', url);
+            });
+        }
 
         // Cargar procesos al iniciar
         cargarProcesos();
 
         // Hacer funciones globales para los onclick
-window.mostrarFormulario = mostrarFormulario;
-window.mostrarFormularioPaso = mostrarFormularioPaso;
-window.guardarPaso = guardarPaso;
-window.cancelarFormularioPaso = cancelarFormularioPaso;
-window.eliminarPaso = eliminarPaso;
-window.guardarProceso = guardarProceso;
-window.cancelarFormulario = cancelarFormulario;
-window.editarProceso = editarProceso;
-window.eliminarProceso = eliminarProceso;
-window.copiarLink = copiarLink;
-window.toggleProceso = toggleProceso;
+        window.mostrarFormulario = mostrarFormulario;
+        window.mostrarFormularioPaso = mostrarFormularioPaso;
+        window.guardarPaso = guardarPaso;
+        window.cancelarFormularioPaso = cancelarFormularioPaso;
+        window.eliminarPaso = eliminarPaso;
+        window.guardarProceso = guardarProceso;
+        window.cancelarFormulario = cancelarFormulario;
+        window.editarProceso = editarProceso;
+        window.eliminarProceso = eliminarProceso;
+        window.copiarLink = copiarLink;
+        window.toggleProceso = toggleProceso;
     </script>
 </body>
 </html>
