@@ -28,7 +28,7 @@
 
         /* Bloque Superior */
         .top-block {
-            background: white;
+            background: rgb(250, 250, 250);
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -320,6 +320,23 @@
     </div>
 
     <script>
+        // Importar Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+// Configuración de Firebase (LA MISMA DEL ADMIN)
+const firebaseConfig = {
+  apiKey: "AIzaSyCf2Bpc_146WvEVlOoFsbQfEGMjWZpWBz0",
+  authDomain: "dashboard-legal-eedee.firebaseapp.com",
+  projectId: "dashboard-legal-eedee",
+  storageBucket: "dashboard-legal-eedee.firebasestorage.app",
+  messagingSenderId: "635760171133",
+  appId: "1:635760171133:web:c7bb96dbd5770218483914"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
         // Función para obtener parámetro de la URL
         function getParameterByName(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -368,163 +385,151 @@
         }
 
         // Función principal para cargar el dashboard
-        function cargarDashboard() {
-            const container = document.getElementById('dashboardContainer');
-            
-            // Obtener ID de la URL
-            const procesoId = getParameterByName('id');
-            
-            if (!procesoId) {
-                container.innerHTML = `
-                    <div class="error-message">
-                        <h2>🔍 Proceso no encontrado</h2>
-                        <p>No se ha especificado un ID de proceso válido.</p>
-                    </div>
-                `;
-                return;
-            }
+        // Función para cargar el dashboard desde Firebase
+function cargarDashboard() {
+    const container = document.getElementById('dashboardContainer');
+    
+    // Obtener ID de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const procesoId = urlParams.get('id');
+    
+    if (!procesoId) {
+        container.innerHTML = `<div class="error-message"><h2>🔍 Proceso no encontrado</h2><p>No se ha especificado un ID de proceso válido.</p></div>`;
+        return;
+    }
 
-            // Obtener procesos del localStorage
-            const procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
-            
-            // Buscar el proceso por ID (comparando como string por si acaso)
-            const proceso = procesos.find(p => p.id == procesoId);
-            
-            if (!proceso) {
-                container.innerHTML = `
-                    <div class="error-message">
-                        <h2>⚠️ Proceso no encontrado</h2>
-                        <p>El proceso que buscas no existe o ha sido eliminado.</p>
-                        <p style="margin-top: 10px; font-size: 12px;">ID buscado: ${procesoId}</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Calcular progreso si no viene calculado
-            const progreso = proceso.progreso || {
-                porcentaje: 0,
-                completados: 0,
-                pendientes: 0,
-                fase: 'Inicio'
-            };
-
-            // Generar HTML de los pasos
-            let pasosHtml = '';
-            if (proceso.pasos && proceso.pasos.length > 0) {
-                proceso.pasos.forEach((paso, index) => {
-                    const estadoClass = getEstadoClass(paso.estado);
-                    const estadoTexto = getEstadoTexto(paso.estado);
-                    const icono = getEstadoIcono(paso.estado);
-                    
-                    pasosHtml += `
-                        <div class="process-step step-${index % 8}">
-                            <div class="step-header">
-                                <span class="step-title">${paso.titulo || 'Paso sin título'}</span>
-                                <span class="step-status ${estadoClass}">${estadoTexto}</span>
-                            </div>
-                            <div class="step-info">
-                                <p>${paso.descripcion || 'Sin descripción'}</p>
-                            </div>
-                            <div class="step-details">
-                                <span>📅 Inicio: ${formatearFecha(paso.fechaInicio)}</span>
-                                <span>${icono} ${paso.estado === 'completado' ? '100%' : paso.estado === 'en_progreso' ? 'En curso' : 'Pendiente'}</span>
-                            </div>
-                            ${paso.fechaEstimada ? `
-                            <div class="step-details" style="border-top: none; padding-top: 4px;">
-                                <span>🎯 Estimado: ${formatearFecha(paso.fechaEstimada)}</span>
-                            </div>
-                            ` : ''}
-                        </div>
-                    `;
-                });
-            } else {
-                pasosHtml = '<p style="grid-column: 1/-1; text-align: center; color: #718096;">No hay pasos definidos para este proceso</p>';
-            }
-
-            // Generar HTML completo del dashboard
-            container.innerHTML = `
-                <!-- BLOQUE SUPERIOR -->
-                <div class="top-block">
-                    <div class="service-header">
-                        <div class="service-title">
-                            <h2>⚖️ ${proceso.servicio.nombre || 'Seguimiento de Caso'}</h2>
-                            <span class="service-badge">${progreso.fase || 'En Proceso'}</span>
-                        </div>
-                    </div>
-
-                    <div class="info-cards">
-                        <!-- Tarjeta 1: Servicio Contratado -->
-                        <div class="card">
-                            <div class="card-icon">📋</div>
-                            <div class="card-content">
-                                <span class="card-label">Servicio Contratado</span>
-                                <span class="card-value">${proceso.servicio.nombre || 'No especificado'}</span>
-                                <span class="card-subvalue">Exp. ${proceso.servicio.expediente || 'N/A'}</span>
-                            </div>
-                        </div>
-
-                        <!-- Tarjeta 2: Cliente -->
-                        <div class="card">
-                            <div class="card-icon">👤</div>
-                            <div class="card-content">
-                                <span class="card-label">Cliente</span>
-                                <span class="card-value">${proceso.cliente.nombre || 'No especificado'}</span>
-                                <span class="card-subvalue">"${proceso.cliente.apodo || 'Sin apodo'}"</span>
-                            </div>
-                        </div>
-
-                        <!-- Tarjeta 3: Código del Servicio -->
-                        <div class="card">
-                            <div class="card-icon">🔑</div>
-                            <div class="card-content">
-                                <span class="card-label">Código del Servicio</span>
-                                <span class="card-value">${proceso.servicio.codigo || 'N/A'}</span>
-                                <span class="card-subvalue">ID: ${proceso.servicio.idInterno || 'N/A'}</span>
-                            </div>
-                        </div>
-
-                        <!-- Tarjeta 4: Fecha de Inicio -->
-                        <div class="card">
-                            <div class="card-icon">📅</div>
-                            <div class="card-content">
-                                <span class="card-label">Fecha de Inicio</span>
-                                <span class="card-value">${formatearFecha(proceso.servicio.fechaInicio)}</span>
-                                <span class="card-subvalue">ID: ${proceso.id}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="progress-section">
-                        <div class="progress-header">
-                            <div>
-                                <span class="progress-title">Progreso del Caso</span>
-                                <span class="progress-stage">${progreso.fase || 'Inicio'}</span>
-                            </div>
-                            <span class="progress-percentage">${progreso.porcentaje || 0}% Completado</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${progreso.porcentaje || 0}%;"></div>
-                        </div>
-                        <div class="progress-footer">
-                            <span>⬇️ ${progreso.completados || 0} pasos completados</span>
-                            <span>⬆️ ${progreso.pendientes || 0} pasos pendientes</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BLOQUE INFERIOR - PASOS DEL PROCESO -->
-                <div class="bottom-block">
-                    ${pasosHtml}
-                </div>
-
-                <!-- Footer con ID de referencia -->
-                <div style="text-align: center; color: #a0aec0; font-size: 12px; margin-top: 10px;">
-                    Proceso #${proceso.id} • Consulte regularmente para ver actualizaciones
-                </div>
-            `;
+    // Escuchar cambios en tiempo real desde Firebase
+    const procesoRef = ref(database, `procesos/${procesoId}`);
+    onValue(procesoRef, (snapshot) => {
+        const proceso = snapshot.val();
+        
+        if (!proceso) {
+            container.innerHTML = `<div class="error-message"><h2>⚠️ Proceso no encontrado</h2><p>El proceso que buscas no existe o ha sido eliminado.</p><p style="margin-top: 10px; font-size: 12px;">ID buscado: ${procesoId}</p></div>`;
+            return;
         }
 
+        // Calcular progreso si no viene calculado
+        const progreso = proceso.progreso || {
+            porcentaje: 0,
+            completados: 0,
+            pendientes: 0,
+            fase: 'Inicio'
+        };
+
+        // Generar HTML de los pasos
+        let pasosHtml = '';
+        if (proceso.pasos && proceso.pasos.length > 0) {
+            proceso.pasos.forEach((paso, index) => {
+                const estadoClass = paso.estado === 'completado' ? 'status-completed' :
+                                   paso.estado === 'en_progreso' ? 'status-inprogress' : 'status-pending';
+                
+                const estadoTexto = paso.estado === 'completado' ? 'Completado' :
+                                   paso.estado === 'en_progreso' ? 'En Progreso' : 'Pendiente';
+                
+                const icono = paso.estado === 'completado' ? '✅' :
+                             paso.estado === 'en_progreso' ? '⚡' : '⏳';
+                
+                pasosHtml += `
+                    <div class="process-step step-${index % 8}">
+                        <div class="step-header">
+                            <span class="step-title">${paso.titulo || 'Paso sin título'}</span>
+                            <span class="step-status ${estadoClass}">${estadoTexto}</span>
+                        </div>
+                        <div class="step-info">
+                            <p>${paso.descripcion || 'Sin descripción'}</p>
+                        </div>
+                        <div class="step-details">
+                            <span>📅 Inicio: ${formatearFecha(paso.fechaInicio)}</span>
+                            <span>${icono} ${paso.estado === 'completado' ? '100%' : paso.estado === 'en_progreso' ? 'En curso' : 'Pendiente'}</span>
+                        </div>
+                        ${paso.fechaEstimada ? `
+                        <div class="step-details" style="border-top: none; padding-top: 4px;">
+                            <span>🎯 Estimado: ${formatearFecha(paso.fechaEstimada)}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+        } else {
+            pasosHtml = '<p style="grid-column: 1/-1; text-align: center; color: #718096;">No hay pasos definidos para este proceso</p>';
+        }
+
+        // Generar HTML completo del dashboard
+        container.innerHTML = `
+            <div class="top-block">
+                <div class="service-header">
+                    <div class="service-title">
+                        <h2>⚖️ ${proceso.servicio.nombre || 'Seguimiento de Caso'}</h2>
+                        <span class="service-badge">${progreso.fase || 'En Proceso'}</span>
+                    </div>
+                </div>
+
+                <div class="info-cards">
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <div class="card-content">
+                            <span class="card-label">Servicio Contratado</span>
+                            <span class="card-value">${proceso.servicio.nombre || 'No especificado'}</span>
+                            <span class="card-subvalue">Exp. ${proceso.servicio.expediente || 'N/A'}</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">👤</div>
+                        <div class="card-content">
+                            <span class="card-label">Cliente</span>
+                            <span class="card-value">${proceso.cliente.nombre || 'No especificado'}</span>
+                            <span class="card-subvalue">"${proceso.cliente.apodo || 'Sin apodo'}"</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">🔑</div>
+                        <div class="card-content">
+                            <span class="card-label">Código del Servicio</span>
+                            <span class="card-value">${proceso.servicio.codigo || 'N/A'}</span>
+                            <span class="card-subvalue">ID: ${proceso.servicio.idInterno || 'N/A'}</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">📅</div>
+                        <div class="card-content">
+                            <span class="card-label">Fecha de Inicio</span>
+                            <span class="card-value">${formatearFecha(proceso.servicio.fechaInicio)}</span>
+                            <span class="card-subvalue">ID: ${procesoId}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <div>
+                            <span class="progress-title">Progreso del Caso</span>
+                            <span class="progress-stage">${progreso.fase || 'Inicio'}</span>
+                        </div>
+                        <span class="progress-percentage">${progreso.porcentaje || 0}% Completado</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progreso.porcentaje || 0}%;"></div>
+                    </div>
+                    <div class="progress-footer">
+                        <span>⬇️ ${progreso.completados || 0} pasos completados</span>
+                        <span>⬆️ ${progreso.pendientes || 0} pasos pendientes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-block">
+                ${pasosHtml}
+            </div>
+
+            <div style="text-align: center; color: #a0aec0; font-size: 12px; margin-top: 10px;">
+                Proceso #${procesoId} • Consulte regularmente para ver actualizaciones
+            </div>
+        `;
+    });
+}
         // Cargar dashboard cuando la página esté lista
         document.addEventListener('DOMContentLoaded', cargarDashboard);
 

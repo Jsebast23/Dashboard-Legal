@@ -446,6 +446,23 @@
     </div>
 
     <script>
+        // Importar Firebase (DEBE IR AL PRINCIPIO)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+// Configuración de Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCf2Bpc_146WvEVlOoFsbQfEGMjWZpWBz0",
+  authDomain: "dashboard-legal-eedee.firebaseapp.com",
+  projectId: "dashboard-legal-eedee",
+  storageBucket: "dashboard-legal-eedee.firebasestorage.app",
+  messagingSenderId: "635760171133",
+  appId: "1:635760171133:web:c7bb96dbd5770218483914"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
         // Variable global para almacenar los pasos temporales
         let pasosTemporales = [];
 
@@ -589,72 +606,61 @@
         }
 
         // Guardar proceso completo
-        function guardarProceso() {
-            const procesoId = document.getElementById('procesoId').value;
-            
-            const proceso = {
-                // Convertir ID a string para evitar problemas
-                id: procesoId ? procesoId.toString() : Date.now().toString(),
-                servicio: {
-                    nombre: document.getElementById('servicio').value,
-                    expediente: document.getElementById('expediente').value,
-                    fechaInicio: document.getElementById('fechaInicio').value,
-                    codigo: document.getElementById('codigoServicio').value,
-                    idInterno: document.getElementById('idInterno').value
-                },
-                cliente: {
-                    nombre: document.getElementById('clienteNombre').value,
-                    apodo: document.getElementById('clienteApodo').value
-                },
-                pasos: pasosTemporales,
-                linkCliente: `/cliente/?id=${procesoId ? procesoId.toString() : Date.now().toString()}`,
-                fechaCreacion: new Date().toLocaleDateString()
-            };
+        // Guardar proceso en Firebase
+function guardarProceso() {
+    const procesoId = document.getElementById('procesoId').value;
+    
+    const proceso = {
+        servicio: {
+            nombre: document.getElementById('servicio').value,
+            expediente: document.getElementById('expediente').value,
+            fechaInicio: document.getElementById('fechaInicio').value,
+            codigo: document.getElementById('codigoServicio').value,
+            idInterno: document.getElementById('idInterno').value
+        },
+        cliente: {
+            nombre: document.getElementById('clienteNombre').value,
+            apodo: document.getElementById('clienteApodo').value
+        },
+        pasos: pasosTemporales,
+        fechaCreacion: new Date().toLocaleDateString()
+    };
 
-            // Calcular progreso basado en pasos
-            if (proceso.pasos.length > 0) {
-                const completados = proceso.pasos.filter(p => p.estado === 'completado').length;
-                const enProgreso = proceso.pasos.filter(p => p.estado === 'en_progreso').length;
-                proceso.progreso = {
-                    porcentaje: Math.round((completados / proceso.pasos.length) * 100),
-                    completados: completados,
-                    pendientes: proceso.pasos.length - completados,
-                    fase: obtenerFaseActual(proceso.pasos)
-                };
-            } else {
-                proceso.progreso = {
-                    porcentaje: 0,
-                    completados: 0,
-                    pendientes: 0,
-                    fase: 'Sin iniciar'
-                };
-            }
+    // Calcular progreso basado en pasos
+    if (proceso.pasos.length > 0) {
+        const completados = proceso.pasos.filter(p => p.estado === 'completado').length;
+        proceso.progreso = {
+            porcentaje: Math.round((completados / proceso.pasos.length) * 100),
+            completados: completados,
+            pendientes: proceso.pasos.length - completados,
+            fase: obtenerFaseActual(proceso.pasos)
+        };
+    } else {
+        proceso.progreso = {
+            porcentaje: 0,
+            completados: 0,
+            pendientes: 0,
+            fase: 'Sin iniciar'
+        };
+    }
 
-            // Obtener procesos existentes
-            let procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
-            
-            if (procesoId) {
-                // Editar existente - comparar como string
-                const index = procesos.findIndex(p => p.id.toString() === procesoId.toString());
-                if (index !== -1) {
-                    procesos[index] = proceso;
-                } else {
-                    alert('Error: No se encontró el proceso para editar');
-                    return;
-                }
-            } else {
-                // Nuevo proceso
-                procesos.push(proceso);
-            }
-            
-            // Guardar en localStorage
-            localStorage.setItem('procesos', JSON.stringify(procesos));
-            
+    const procesosRef = ref(database, 'procesos');
+    
+    if (procesoId) {
+        // Editar existente
+        set(ref(database, `procesos/${procesoId}`), proceso).then(() => {
+            alert('Proceso actualizado con éxito!');
             cancelarFormulario();
-            cargarProcesos();
-            
-            alert('Proceso guardado con éxito!');
-        }
+        });
+    } else {
+        // Nuevo proceso
+        const nuevoProcesoRef = push(procesosRef);
+        set(nuevoProcesoRef, proceso).then(() => {
+            alert('Proceso creado con éxito!');
+            cancelarFormulario();
+        });
+    }
+}
 
         function obtenerFaseActual(pasos) {
             if (pasos.length === 0) return 'Sin iniciar';
@@ -664,12 +670,15 @@
             return pasoActual ? pasoActual.titulo : 'Completado';
         }
 
-        function editarProceso(id) {
-            const procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
-            // Convertir a string para comparación segura
-            const proceso = procesos.find(p => p.id.toString() === id.toString());
-            
-            if (proceso) {
+        //Se actualizó para colocar firebase
+        // Editar proceso
+function editarProceso(id) {
+    const procesosRef = ref(database, 'procesos');
+    onValue(procesosRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            if (childSnapshot.key === id) {
+                const proceso = childSnapshot.val();
+                
                 document.getElementById('servicio').value = proceso.servicio.nombre;
                 document.getElementById('expediente').value = proceso.servicio.expediente;
                 document.getElementById('clienteNombre').value = proceso.cliente.nombre;
@@ -681,11 +690,12 @@
                 pasosTemporales = proceso.pasos || [];
                 actualizarGridPasos();
                 
+                document.getElementById('procesoId').value = id;
                 mostrarFormulario(proceso);
-            } else {
-                alert('Error: No se encontró el proceso');
             }
-        }
+        });
+    }, { onlyOnce: true });
+}
 
         function limpiarFormularioProceso() {
             document.getElementById('servicio').value = 'Divorcio Contencioso';
@@ -699,67 +709,91 @@
             actualizarGridPasos();
         }
 
-        // Cargar procesos desde localStorage
-        function cargarProcesos() {
-            const procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
-            const contenedor = document.getElementById('listaProcesos');
-            
-            if (procesos.length === 0) {
-                contenedor.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No hay procesos creados aún</p>';
-                return;
-            }
+        
+       // Cargar procesos desde Firebase
+function cargarProcesos() {
+    const procesosRef = ref(database, 'procesos');
+    onValue(procesosRef, (snapshot) => {
+        const procesos = [];
+        snapshot.forEach((childSnapshot) => {
+            const proceso = childSnapshot.val();
+            proceso.id = childSnapshot.key;
+            procesos.push(proceso);
+        });
+        
+        actualizarListaProcesos(procesos);
+    });
+}
 
-            let html = '';
-            procesos.forEach(proceso => {
-                const progreso = proceso.progreso || { porcentaje: 0, completados: 0, pendientes: 0 };
+// Función para mostrar los procesos en el HTML
+function actualizarListaProcesos(procesos) {
+    const contenedor = document.getElementById('listaProcesos');
+    
+    if (procesos.length === 0) {
+        contenedor.innerHTML = '<p style="color: #718096; text-align: center; padding: 20px;">No hay procesos creados aún</p>';
+        return;
+    }
+
+    let html = '';
+    procesos.forEach(proceso => {
+        const progreso = proceso.progreso || { porcentaje: 0, completados: 0, pendientes: 0 };
+        
+        html += `
+            <div class="proceso-card">
+                <div class="proceso-header" onclick="toggleProceso('${proceso.id}')">
+                    <h3>${proceso.servicio.nombre} - ${proceso.cliente.nombre}</h3>
+                    <span class="proceso-badge">${progreso.porcentaje}%</span>
+                </div>
                 
-                html += `
-                    <div class="proceso-card">
-                        <div class="proceso-header" onclick="toggleProceso('${proceso.id}')">
-                            <h3>${proceso.servicio.nombre} - ${proceso.cliente.nombre}</h3>
-                            <span class="proceso-badge">${progreso.porcentaje}%</span>
-                        </div>
-                        
-                        <div class="proceso-info">
-                            <span>📋 ${proceso.servicio.codigo}</span>
-                            <span>📅 ${proceso.servicio.fechaInicio}</span>
-                            <span>✅ ${progreso.completados} completados</span>
-                            <span>⏳ ${progreso.pendientes} pendientes</span>
-                        </div>
-                        
-                        <div class="proceso-pasos" id="pasos-${proceso.id}" style="display: none;">
-                            <h4 style="margin-bottom: 10px; color: #4a5568;">Pasos del proceso:</h4>
-                            ${proceso.pasos ? proceso.pasos.map((paso, idx) => {
-                                const estadoClass = paso.estado === 'completado' ? 'estado-completado' :
-                                                   paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
-                                return `
-                                    <div style="border-left: 3px solid #4299e1; padding-left: 12px; margin-bottom: 8px;">
-                                        <div style="display: flex; justify-content: space-between;">
-                                            <strong>${paso.titulo}</strong>
-                                            <span class="paso-estado ${estadoClass}" style="font-size: 10px;">${paso.estado}</span>
-                                        </div>
-                                        <div style="font-size: 12px; color: #718096;">${paso.descripcion}</div>
-                                    </div>
-                                `;
-                            }).join('') : '<p>No hay pasos definidos</p>'}
-                        </div>
-                        
-                        <div class="proceso-link">
-                            <span>🔗 Link cliente:</span>
-                            <span class="link-cliente" onclick="copiarLink('${proceso.linkCliente}')">${window.location.origin}${proceso.linkCliente}</span>
-                        </div>
-                        
-                        <div style="display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end;">
-                            <button class="btn btn-small" onclick="editarProceso('${proceso.id}')">✏️ Editar</button>
-                            <button class="btn btn-small" style="background: #f56565;" onclick="eliminarProceso('${proceso.id}')">🗑️ Eliminar</button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            contenedor.innerHTML = html;
-        }
-
+                <div class="proceso-info">
+                    <span>📋 ${proceso.servicio.codigo}</span>
+                    <span>📅 ${proceso.servicio.fechaInicio}</span>
+                    <span>✅ ${progreso.completados} completados</span>
+                    <span>⏳ ${progreso.pendientes} pendientes</span>
+                </div>
+                
+                <div class="proceso-pasos" id="pasos-${proceso.id}" style="display: none;">
+                    <h4 style="margin-bottom: 10px; color: #4a5568;">Pasos del proceso:</h4>
+                    ${proceso.pasos ? proceso.pasos.map(paso => {
+                        const estadoClass = paso.estado === 'completado' ? 'estado-completado' :
+                                           paso.estado === 'en_progreso' ? 'estado-progreso' : 'estado-pendiente';
+                        return `
+                            <div style="border-left: 3px solid #4299e1; padding-left: 12px; margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <strong>${paso.titulo}</strong>
+                                    <span class="paso-estado ${estadoClass}" style="font-size: 10px;">${paso.estado}</span>
+                                </div>
+                                <div style="font-size: 12px; color: #718096;">${paso.descripcion}</div>
+                            </div>
+                        `;
+                    }).join('') : '<p>No hay pasos definidos</p>'}
+                </div>
+                
+                <div class="proceso-link">
+                    <span>🔗 Link cliente:</span>
+                    <span class="link-cliente" onclick="copiarLink('${proceso.id}')">
+                        ${window.location.origin}/cliente/?id=${proceso.id}
+                    </span>
+                </div>
+                
+                <div style="display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end;">
+                    <button class="btn btn-small" onclick="editarProceso('${proceso.id}')">✏️ Editar</button>
+                    <button class="btn btn-small" style="background: #f56565;" onclick="eliminarProceso('${proceso.id}')">🗑️ Eliminar</button>
+                </div>
+            </div>
+        `;
+    });
+    
+    contenedor.innerHTML = html;
+}
+// Eliminar proceso de Firebase
+function eliminarProceso(id) {
+    if (confirm('¿Estás seguro de eliminar este proceso?')) {
+        remove(ref(database, `procesos/${id}`)).then(() => {
+            alert('Proceso eliminado');
+        });
+    }
+}
         function toggleProceso(id) {
             const elemento = document.getElementById(`pasos-${id}`);
             if (elemento) {
@@ -774,15 +808,7 @@
             });
         }
 
-        function eliminarProceso(id) {
-            if (confirm('¿Estás seguro de eliminar este proceso?')) {
-                let procesos = JSON.parse(localStorage.getItem('procesos') || '[]');
-                // Convertir a string para comparar
-                procesos = procesos.filter(p => p.id.toString() !== id.toString());
-                localStorage.setItem('procesos', JSON.stringify(procesos));
-                cargarProcesos();
-            }
-        }
+    
 
         // Cargar procesos al iniciar
         cargarProcesos();
